@@ -1,0 +1,38 @@
+gstacks v2.63, executed 2024-04-17 16:52:32 (zlib-1.2.11)
+/usr/local/bin/gstacks -P ./intermediate/denovomap/denovo_M4 -t 10 -M ./raw/popmap
+Locus/sample distributions will be written to './intermediate/denovomap/denovo_M4/gstacks.log.distribs'.
+
+Configuration for this run:
+  Input mode: denovo
+  Population map: './raw/popmap'
+  Input files: 3, e.g. './intermediate/denovomap/denovo_M4/GVA1418.matches.bam'
+  Output to: './intermediate/denovomap/denovo_M4/'
+  Model: marukilow (var_alpha: 0.01, gt_alpha: 0.05)
+
+Reading BAM headers...
+Processing all loci...
+1%...
+2%...
+5%...
+10%...
+20%...
+50%...
+100%
+
+Attempted to assemble and align paired-end reads for 199 loci:
+  0 loci had no or almost no paired-end reads (0.0%);
+  1 loci had paired-end reads that couldn't be assembled into a contig (0.5%);
+  For the remaining 198 loci (99.5%), a paired-end contig was assembled;
+    Average contig size was 181.4 bp;
+  192 paired-end contigs overlapped the forward region (97.0%)
+    Mean overlap: 30.7bp; mean size of overlapped loci after merging: 181.3;
+  Out of 1662 paired-end reads in these loci (mean 8.4 reads per locus),
+    1662 were successfuly aligned (100.0%);
+  Mean insert length was 171.9, stdev: 37.4 (based on aligned reads in overlapped loci).
+
+Genotyped 198 loci:
+  effective per-sample coverage: mean=4.5x, stdev=0.3x, min=4.2x, max=5.0x
+  mean number of sites per locus: 181.1
+  a consistent phasing was found for 1 of out 1 (100.0%) diploid loci needing phasing
+
+gstacks is done.

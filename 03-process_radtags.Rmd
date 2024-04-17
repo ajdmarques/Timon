@@ -1,0 +1,79 @@
+# Process Radtags
+
+Raw reads are checked for barcode indices and RAD cutsite then demultiplexed. A sliding window checks the average quality score and discards those with less than 90% probability of being correct corresponding to a raw phred score of 10. 
+
+```{r}
+##############################
+## INITIALIZE DIRECTORIES
+##############################
+# Define directories
+home_dir <- "./"
+raw_dir <- "./raw/"
+int_dir <- "./intermediate/"
+# results directories
+radtag_dir <- paste0(int_dir,"process_radtags/")
+denovo_dir <- paste0(int_dir,"denovomap/")
+populations_dir <- paste0(int_dir,"populations/")
+```
+
+Load the relevant parameters. Stacks versions 2.65+ are necessary for our analysis as earlier versions do not have the "aclI" enzyme option. 
+
+```{r}
+##############################
+## PARAMETERS
+##############################
+# general cutside
+renz1 = "pstI"
+# rare cutsite
+renz2 = "aclI"
+# adapter sequence
+lenth_limit = 150
+```
+
+Identify all of the trimmed files for use as imput.
+
+```{r}
+##############################
+## LIST FILES
+##############################
+# list of sequence directories
+fq <- list()
+list.files(path = raw_dir, pattern = "MK1", include.dirs = T) -> fq
+# trimmed P1 reads
+p1 <- list()
+list.files(path = raw_dir, pattern = "Trim1.fq.gz", recursive = T) -> p1
+# trimmer P2 reads
+p2 <- list()
+list.files(path = raw_dir, pattern = "Trim2.fq.gz", recursive = T) -> p2
+```
+
+Repeat the process_radtags function for each sequence directory. All demultiplexed reads are then stored in the same directory, "process_radtags". 
+
+```{r}
+##############################
+## PROCESS_RADTAGS
+##############################
+### Run process_radtags to parse the Combined data by individual
+for (i in seq_along(fq)){
+  system(
+    paste0("process_radtags",
+           " -1 ",raw_dir,p1[i],
+           " -2 ",raw_dir,p2[i],
+           " -b ",raw_dir,fq[i],"/barcodes_",fq[i],
+           " --paired ",
+           " -c ",
+           " -r ",
+           " -o ",radtag_dir,
+           " -q ",
+           " --inline-inline ",
+           " --renz-1 ",renz1,
+           " --renz-2 ",renz2
+    ),
+    intern = TRUE)
+}
+```
+
+```{r}
+# cleanup
+rm(radtag_parameters,p1,p2,i,renz1,renz2,lenth_limit,fq)
+```

@@ -1,0 +1,404 @@
+denovo_map.pl version 2.63 started at 2024-04-17 16:52:30
+/usr/local/bin/denovo_map.pl -T 10 -M 4 -o ./intermediate/denovomap/denovo_M4/ --samples ./intermediate/process_radtags/ --popmap ./raw/popmap --paired
+
+ustacks
+==========
+
+Sample 1 of 3 'GVA1418'
+----------
+/usr/local/bin/ustacks -t gzfastq -f ./intermediate/process_radtags/GVA1418.1.fq.gz -o ./intermediate/denovomap/denovo_M4 -i 1 --name GVA1418 -p 10 -M 4
+ustacks parameters selected:
+  Input file: './intermediate/process_radtags/GVA1418.1.fq.gz'
+  Sample ID: 1
+  Min depth of coverage to create a stack (m): 3
+  Repeat removal algorithm: enabled
+  Max distance allowed between stacks (M): 4
+  Max distance allowed to align secondary reads: 6
+  Max number of stacks allowed per de novo locus: 3
+  Deleveraging algorithm: disabled
+  Gapped assembly: enabled
+  Minimum alignment length: 0.8
+  Model type: SNP
+  Alpha significance level for model: 0.05
+
+Loading RAD-Tags...
+
+Loaded 5976 reads; formed:
+  99 stacks representing 342 primary reads (5.7%)
+  5150 secondary stacks representing 5634 secondary reads (94.3%)
+
+Stack coverage: mean=3.45; stdev=1.32; max=12; n_reads=342(5.7%)
+Removing repetitive stacks: cov > 8 (mean+3*stdev)...
+  Blacklisted 5 stacks.
+Coverage after repeat removal: mean=3.28; stdev=0.64; max=7; n_reads=308(5.2%)
+
+Assembling stacks (max. dist. M=4)...
+  Assembled 94 stacks into 96; blacklisted 0 stacks.
+Coverage after assembling stacks: mean=3.28; stdev=0.64; max=7; n_reads=308(5.2%)
+
+Merging secondary stacks (max. dist. N=6 from consensus)...
+  Merged 20 out of 5634 secondary reads (0.4%), 0 merged with gapped alignments.
+Coverage after merging secondary stacks: mean=3.49; stdev=0.77; max=7; n_reads=328(5.5%)
+
+Assembling stacks, allowing for gaps (min. match length 80.0%)...
+  Assembled 96 stacks into 96 stacks.
+Coverage after gapped assembly: mean=3.49; stdev=0.77; max=7; n_reads=328(5.5%)
+
+Merging secondary stacks, allowing for gaps (min. match length 80.0%)...
+  Merged 25 out of 5614 secondary reads (0.4%).
+Coverage after merging gapped secondary stacks: mean=3.76; stdev=2.44; max=26; n_reads=353(5.9%)
+
+Final number of stacks built: 96
+Final coverage: mean=3.76; stdev=2.44; max=26; n_reads=353(5.9%)
+Calling consensus sequences and haplotypes for catalog assembly...
+Writing tags, SNPs, and alleles files to './intermediate/denovomap/denovo_M4/GVA1418'...done.
+ustacks is done.
+
+Sample 2 of 3 'GVA1515'
+----------
+/usr/local/bin/ustacks -t gzfastq -f ./intermediate/process_radtags/GVA1515.1.fq.gz -o ./intermediate/denovomap/denovo_M4 -i 2 --name GVA1515 -p 10 -M 4
+ustacks parameters selected:
+  Input file: './intermediate/process_radtags/GVA1515.1.fq.gz'
+  Sample ID: 2
+  Min depth of coverage to create a stack (m): 3
+  Repeat removal algorithm: enabled
+  Max distance allowed between stacks (M): 4
+  Max distance allowed to align secondary reads: 6
+  Max number of stacks allowed per de novo locus: 3
+  Deleveraging algorithm: disabled
+  Gapped assembly: enabled
+  Minimum alignment length: 0.8
+  Model type: SNP
+  Alpha significance level for model: 0.05
+
+Loading RAD-Tags...
+
+Loaded 3876 reads; formed:
+  82 stacks representing 303 primary reads (7.8%)
+  3314 secondary stacks representing 3573 secondary reads (92.2%)
+
+Stack coverage: mean=3.70; stdev=1.39; max=12; n_reads=303(7.8%)
+Removing repetitive stacks: cov > 8 (mean+3*stdev)...
+  Blacklisted 3 stacks.
+Coverage after repeat removal: mean=3.52; stdev=0.76; max=6; n_reads=278(7.2%)
+
+Assembling stacks (max. dist. M=4)...
+  Assembled 79 stacks into 81; blacklisted 0 stacks.
+Coverage after assembling stacks: mean=3.52; stdev=0.76; max=6; n_reads=278(7.2%)
+
+Merging secondary stacks (max. dist. N=6 from consensus)...
+  Merged 55 out of 3573 secondary reads (1.5%), 4 merged with gapped alignments.
+Coverage after merging secondary stacks: mean=4.22; stdev=2.38; max=20; n_reads=333(8.6%)
+
+Assembling stacks, allowing for gaps (min. match length 80.0%)...
+  Assembled 81 stacks into 80 stacks.
+Coverage after gapped assembly: mean=4.27; stdev=2.75; max=24; n_reads=333(8.6%)
+
+Merging secondary stacks, allowing for gaps (min. match length 80.0%)...
+  Merged 14 out of 3518 secondary reads (0.4%).
+Coverage after merging gapped secondary stacks: mean=4.45; stdev=3.52; max=30; n_reads=347(9.0%)
+
+Final number of stacks built: 80
+Final coverage: mean=4.45; stdev=3.52; max=30; n_reads=347(9.0%)
+Calling consensus sequences and haplotypes for catalog assembly...
+Writing tags, SNPs, and alleles files to './intermediate/denovomap/denovo_M4/GVA1515'...done.
+ustacks is done.
+
+Sample 3 of 3 'GVA1926'
+----------
+/usr/local/bin/ustacks -t gzfastq -f ./intermediate/process_radtags/GVA1926.1.fq.gz -o ./intermediate/denovomap/denovo_M4 -i 3 --name GVA1926 -p 10 -M 4
+ustacks parameters selected:
+  Input file: './intermediate/process_radtags/GVA1926.1.fq.gz'
+  Sample ID: 3
+  Min depth of coverage to create a stack (m): 3
+  Repeat removal algorithm: enabled
+  Max distance allowed between stacks (M): 4
+  Max distance allowed to align secondary reads: 6
+  Max number of stacks allowed per de novo locus: 3
+  Deleveraging algorithm: disabled
+  Gapped assembly: enabled
+  Minimum alignment length: 0.8
+  Model type: SNP
+  Alpha significance level for model: 0.05
+
+Loading RAD-Tags...
+
+Loaded 5584 reads; formed:
+  38 stacks representing 127 primary reads (2.3%)
+  5162 secondary stacks representing 5457 secondary reads (97.7%)
+
+Stack coverage: mean=3.34; stdev=1.24; max=10; n_reads=127(2.3%)
+Removing repetitive stacks: cov > 8 (mean+3*stdev)...
+  Blacklisted 1 stacks.
+Coverage after repeat removal: mean=3.16; stdev=0.59; max=6; n_reads=117(2.1%)
+
+Assembling stacks (max. dist. M=4)...
+  Assembled 37 stacks into 38; blacklisted 0 stacks.
+Coverage after assembling stacks: mean=3.16; stdev=0.59; max=6; n_reads=117(2.1%)
+
+Merging secondary stacks (max. dist. N=6 from consensus)...
+  Merged 13 out of 5457 secondary reads (0.2%), 1 merged with gapped alignments.
+Coverage after merging secondary stacks: mean=3.51; stdev=2.15; max=16; n_reads=130(2.3%)
+
+Assembling stacks, allowing for gaps (min. match length 80.0%)...
+  Assembled 38 stacks into 38 stacks.
+Coverage after gapped assembly: mean=3.51; stdev=2.15; max=16; n_reads=130(2.3%)
+
+Merging secondary stacks, allowing for gaps (min. match length 80.0%)...
+  Merged 4 out of 5444 secondary reads (0.1%).
+Coverage after merging gapped secondary stacks: mean=3.62; stdev=2.78; max=20; n_reads=134(2.4%)
+
+Final number of stacks built: 38
+Final coverage: mean=3.62; stdev=2.78; max=20; n_reads=134(2.4%)
+Calling consensus sequences and haplotypes for catalog assembly...
+Writing tags, SNPs, and alleles files to './intermediate/denovomap/denovo_M4/GVA1926'...done.
+ustacks is done.
+
+BEGIN cov_per_sample
+# Depths of Coverage for Processed Samples
+sample	loci assembled	depth of cov	max cov	number reads incorporated	% reads incorporated
+GVA1418	96	3.76	26	353	5.9
+GVA1515	80	4.45	30	347	9.0
+GVA1926	38	3.62	20	134	2.4
+END cov_per_sample
+
+cstacks
+==========
+/usr/local/bin/cstacks -p 10 -M ./raw/popmap -n 4 -P ./intermediate/denovomap/denovo_M4
+
+cstacks parameters selected:
+  Loci matched based on sequence identity.
+  Number of mismatches allowed between stacks: 4
+  Gapped alignments: enabled
+Constructing catalog from 3 samples.
+
+Initializing new catalog...
+  Parsing ./intermediate/denovomap/denovo_M4/GVA1418.tags.tsv.gz
+  Parsing ./intermediate/denovomap/denovo_M4/GVA1418.snps.tsv.gz
+  Parsing ./intermediate/denovomap/denovo_M4/GVA1418.alleles.tsv.gz
+  94 loci were newly added to the catalog.
+
+Processing sample ./intermediate/denovomap/denovo_M4/GVA1515 [2 of 3]
+  Parsing ./intermediate/denovomap/denovo_M4/GVA1515.tags.tsv.gz
+  Parsing ./intermediate/denovomap/denovo_M4/GVA1515.snps.tsv.gz
+  Parsing ./intermediate/denovomap/denovo_M4/GVA1515.alleles.tsv.gz
+Searching for sequence matches...
+  94 loci in the catalog, 11167 kmers in the catalog hash.
+Searching for gapped alignments...
+Merging matches into catalog...
+  5 loci were matched to a catalog locus.
+  3 loci were matched to a catalog locus using gapped alignments.
+  70 loci were newly added to the catalog.
+  0 loci matched more than one catalog locus, linking them.
+    0 linked catalog loci were merged into 0 loci.
+
+Processing sample ./intermediate/denovomap/denovo_M4/GVA1926 [3 of 3]
+  Parsing ./intermediate/denovomap/denovo_M4/GVA1926.tags.tsv.gz
+  Parsing ./intermediate/denovomap/denovo_M4/GVA1926.snps.tsv.gz
+  Parsing ./intermediate/denovomap/denovo_M4/GVA1926.alleles.tsv.gz
+Searching for sequence matches...
+  164 loci in the catalog, 19580 kmers in the catalog hash.
+Searching for gapped alignments...
+Merging matches into catalog...
+  1 loci were matched to a catalog locus.
+  1 loci were matched to a catalog locus using gapped alignments.
+  35 loci were newly added to the catalog.
+  0 loci matched more than one catalog locus, linking them.
+    0 linked catalog loci were merged into 0 loci.
+
+Writing catalog in directory './intermediate/denovomap/denovo_M4/'.
+Final catalog contains 199 loci.
+cstacks is done.
+
+sstacks
+==========
+/usr/local/bin/sstacks -P ./intermediate/denovomap/denovo_M4 -p 10 -M ./raw/popmap
+
+Searching for matches by sequence identity...
+  Parsing ./intermediate/denovomap/denovo_M4/catalog.tags.tsv.gz
+  Parsing ./intermediate/denovomap/denovo_M4/catalog.snps.tsv.gz
+  Parsing ./intermediate/denovomap/denovo_M4/catalog.alleles.tsv.gz
+Populating kmer dictionary for exact matches...done.
+Populating kmer dictionary for gapped alignments...done.
+
+Processing sample './intermediate/denovomap/denovo_M4/GVA1418' [1 of 3]
+  Parsing ./intermediate/denovomap/denovo_M4/GVA1418.tags.tsv.gz
+  Parsing ./intermediate/denovomap/denovo_M4/GVA1418.snps.tsv.gz
+  Parsing ./intermediate/denovomap/denovo_M4/GVA1418.alleles.tsv.gz
+Searching for sequence matches...
+94 sample loci compared against the catalog containing 199 loci.
+  92 matching loci, 0 contained no verified haplotypes.
+  0 loci matched more than one catalog locus and were excluded.
+  0 loci contained SNPs unaccounted for in the catalog and were excluded.
+  94 total haplotypes examined from matching loci, 94 verified.
+Searching for gapped alignments...
+Out of 94 query loci, 2 gapped alignments attempted.
+  2 loci matched one catalog locus; 2 total haplotypes examined, 2 verified.
+  0 loci matched no catalog locus;
+    0 loci matched more than one catalog locus and were excluded.
+    0 loci contained SNPs unaccounted for in the catalog and were excluded.
+    0 loci had no verified haplotypes.
+    0 loci had inconsistent alignments to a catalog locus and were excluded.
+Outputing to file ./intermediate/denovomap/denovo_M4/GVA1418.matches.tsv.gz
+
+Processing sample './intermediate/denovomap/denovo_M4/GVA1515' [2 of 3]
+  Parsing ./intermediate/denovomap/denovo_M4/GVA1515.tags.tsv.gz
+  Parsing ./intermediate/denovomap/denovo_M4/GVA1515.snps.tsv.gz
+  Parsing ./intermediate/denovomap/denovo_M4/GVA1515.alleles.tsv.gz
+Searching for sequence matches...
+78 sample loci compared against the catalog containing 199 loci.
+  75 matching loci, 0 contained no verified haplotypes.
+  0 loci matched more than one catalog locus and were excluded.
+  0 loci contained SNPs unaccounted for in the catalog and were excluded.
+  78 total haplotypes examined from matching loci, 78 verified.
+Searching for gapped alignments...
+Out of 78 query loci, 3 gapped alignments attempted.
+  3 loci matched one catalog locus; 3 total haplotypes examined, 3 verified.
+  0 loci matched no catalog locus;
+    0 loci matched more than one catalog locus and were excluded.
+    0 loci contained SNPs unaccounted for in the catalog and were excluded.
+    0 loci had no verified haplotypes.
+    0 loci had inconsistent alignments to a catalog locus and were excluded.
+Outputing to file ./intermediate/denovomap/denovo_M4/GVA1515.matches.tsv.gz
+
+Processing sample './intermediate/denovomap/denovo_M4/GVA1926' [3 of 3]
+  Parsing ./intermediate/denovomap/denovo_M4/GVA1926.tags.tsv.gz
+  Parsing ./intermediate/denovomap/denovo_M4/GVA1926.snps.tsv.gz
+  Parsing ./intermediate/denovomap/denovo_M4/GVA1926.alleles.tsv.gz
+Searching for sequence matches...
+37 sample loci compared against the catalog containing 199 loci.
+  36 matching loci, 0 contained no verified haplotypes.
+  0 loci matched more than one catalog locus and were excluded.
+  0 loci contained SNPs unaccounted for in the catalog and were excluded.
+  36 total haplotypes examined from matching loci, 36 verified.
+Searching for gapped alignments...
+Out of 37 query loci, 1 gapped alignments attempted.
+  1 loci matched one catalog locus; 1 total haplotypes examined, 1 verified.
+  0 loci matched no catalog locus;
+    0 loci matched more than one catalog locus and were excluded.
+    0 loci contained SNPs unaccounted for in the catalog and were excluded.
+    0 loci had no verified haplotypes.
+    0 loci had inconsistent alignments to a catalog locus and were excluded.
+Outputing to file ./intermediate/denovomap/denovo_M4/GVA1926.matches.tsv.gz
+
+sstacks is done.
+
+tsv2bam
+==========
+/usr/local/bin/tsv2bam -P ./intermediate/denovomap/denovo_M4  -t 10 -M ./raw/popmap -R ./intermediate/process_radtags/
+
+Logging to './intermediate/denovomap/denovo_M4/tsv2bam.log'.
+Configuration for this run:
+  Stacks directory: './intermediate/denovomap/denovo_M4/'
+  Population map: './raw/popmap'
+  Num. samples: 3
+  Paired-end reads directory: './intermediate/process_radtags/'
+  Multithreaded.
+
+Paired-end reads files found, e.g. './intermediate/process_radtags/GVA1418.2.fq.gz'.
+Loading the catalog...
+Processing sample 'GVA1418'...
+Processing sample 'GVA1515'...
+Processing sample 'GVA1926'...
+
+Sample 'GVA1418': matched 94 sample loci to 94 catalog loci; found a paired-end read for 353 (100.0%) of the assembled forward reads; wrote 706 records.
+Sample 'GVA1515': matched 78 sample loci to 78 catalog loci; found a paired-end read for 347 (100.0%) of the assembled forward reads; wrote 694 records.
+Sample 'GVA1926': matched 37 sample loci to 37 catalog loci; found a paired-end read for 134 (100.0%) of the assembled forward reads; wrote 268 records.
+
+tsv2bam is done.
+
+gstacks
+==========
+/usr/local/bin/gstacks -P ./intermediate/denovomap/denovo_M4 -t 10 -M ./raw/popmap
+
+Logging to './intermediate/denovomap/denovo_M4/gstacks.log'.
+Locus/sample distributions will be written to './intermediate/denovomap/denovo_M4/gstacks.log.distribs'.
+
+Configuration for this run:
+  Input mode: denovo
+  Population map: './raw/popmap'
+  Input files: 3, e.g. './intermediate/denovomap/denovo_M4/GVA1418.matches.bam'
+  Output to: './intermediate/denovomap/denovo_M4/'
+  Model: marukilow (var_alpha: 0.01, gt_alpha: 0.05)
+
+Reading BAM headers...
+Processing all loci...
+1%...
+2%...
+5%...
+10%...
+20%...
+50%...
+100%
+
+Attempted to assemble and align paired-end reads for 199 loci:
+  0 loci had no or almost no paired-end reads (0.0%);
+  1 loci had paired-end reads that couldn't be assembled into a contig (0.5%);
+  For the remaining 198 loci (99.5%), a paired-end contig was assembled;
+    Average contig size was 181.4 bp;
+  192 paired-end contigs overlapped the forward region (97.0%)
+    Mean overlap: 30.7bp; mean size of overlapped loci after merging: 181.3;
+  Out of 1662 paired-end reads in these loci (mean 8.4 reads per locus),
+    1662 were successfuly aligned (100.0%);
+  Mean insert length was 171.9, stdev: 37.4 (based on aligned reads in overlapped loci).
+
+Genotyped 198 loci:
+  effective per-sample coverage: mean=4.5x, stdev=0.3x, min=4.2x, max=5.0x
+  mean number of sites per locus: 181.1
+  a consistent phasing was found for 1 of out 1 (100.0%) diploid loci needing phasing
+
+gstacks is done.
+
+populations
+==========
+/usr/local/bin/populations -P ./intermediate/denovomap/denovo_M4 -t 10 -M ./raw/popmap
+
+Logging to './intermediate/denovomap/denovo_M4/populations.log'.
+Locus/sample distributions will be written to './intermediate/denovomap/denovo_M4/populations.log.distribs'.
+populations parameters selected:
+  Percent samples limit per population: 0
+  Locus Population limit: 1
+  Percent samples overall: 0
+  Minor allele frequency cutoff: 0
+  Maximum observed heterozygosity cutoff: 1
+  Applying Fst correction: none.
+  Pi/Fis kernel smoothing: off
+  F-stats kernel smoothing: off
+  Bootstrap resampling: off
+
+Parsing population map...
+The population map contained 3 samples, 1 population(s), 1 group(s).
+Working on 3 samples.
+Working on 1 population(s):
+    Timon: GVA1418, GVA1515, GVA1926
+Working on 1 group(s) of populations:
+    defaultgrp: Timon
+
+Raw haplotypes will be written to './intermediate/denovomap/denovo_M4/populations.haplotypes.tsv'
+Population-level summary statistics will be written to './intermediate/denovomap/denovo_M4/populations.sumstats.tsv'
+Population-level haplotype summary statistics will be written to './intermediate/denovomap/denovo_M4/populations.hapstats.tsv'
+
+Processing data in batches:
+  * load a batch of catalog loci and apply filters
+  * compute SNP- and haplotype-wise per-population statistics
+  * write the above statistics in the output files
+  * export the genotypes/haplotypes in specified format(s)
+More details in './intermediate/denovomap/denovo_M4/populations.log.distribs'.
+
+Now processing...
+Batch 1 
+
+Removed 0 loci that did not pass sample/population constraints from 198 loci.
+Kept 198 loci, composed of 35920 sites; 0 of those sites were filtered, 7 variant sites remained.
+Number of loci with PE contig: 198.00 (100.0%);
+  Mean length of loci: 171.41bp (stderr 2.82);
+Number of loci with SE/PE overlap: 192.00 (97.0%);
+  Mean length of overlapping loci: 177.67bp (stderr 2.42); mean overlap: 30.67bp (stderr 0.18);
+Mean genotyped sites per locus: 181.11bp (stderr 2.75).
+
+Population summary statistics (more detail in populations.sumstats_summary.tsv):
+  Timon: 1.4286 samples per locus; pi: 0.85714; all/variant/polymorphic sites: 35860/7/7; private alleles: 0
+Populations is done.
+denovo_map.pl is done.
+
+denovo_map.pl completed at 2024-04-17 16:52:32

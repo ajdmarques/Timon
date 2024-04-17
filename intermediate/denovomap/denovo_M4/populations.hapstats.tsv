@@ -1,0 +1,6 @@
+# Timon	GVA1418,GVA1515,GVA1926
+# Locus ID	Chr	BP	Pop ID	N	Haplotype Cnt	Gene Diversity	Smoothed Gene Diversity	Smoothed Gene Diversity P-value	Haplotype Diversity	Smoothed Haplotype Diversity	Smoothed Haplotype Diversity P-value	HWE P-value	HWE P-value SE	Haplotypes
+32	un	5285	Timon	4	2	0.66667	-1.00000	-1.00000	1.33333	-1.00000	-1.00000	0.00000	0.00000	AT:2;GC:2
+85	un	13938	Timon	4	2	0.66667	-1.00000	-1.00000	0.66667	-1.00000	-1.00000	0.00000	0.00000	A:2;G:2
+113	un	18870	Timon	2	2	1.00000	-1.00000	-1.00000	1.00000	-1.00000	-1.00000	0.00000	0.00000	C:1;T:1
+164	un	28333	Timon	2	2	1.00000	-1.00000	-1.00000	3.00000	-1.00000	-1.00000	0.00000	0.00000	CAA:1;GGG:1

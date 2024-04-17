@@ -1,0 +1,51 @@
+populations v2.63, executed 2024-04-17 16:52:33 (zlib-1.2.11)
+populations -P ./intermediate/denovomap/denovo_M4/ -O ./intermediate/populations/ -M ./raw/popmap --genepop --structure --fasta-loci -t 10 --min-samples-per-pop 0.75 --min-maf 0.05--max-obs-het0.5
+Locus/sample distributions will be written to './intermediate/populations/populations.log.distribs'.
+populations parameters selected:
+  Percent samples limit per population: 0.75
+  Locus Population limit: 1
+  Percent samples overall: 0
+  Minor allele frequency cutoff: 0.05
+  Maximum observed heterozygosity cutoff: 1
+  Applying Fst correction: none.
+  Pi/Fis kernel smoothing: off
+  F-stats kernel smoothing: off
+  Bootstrap resampling: off
+
+Parsing population map...
+The population map contained 3 samples, 1 population(s), 1 group(s).
+Working on 3 samples.
+Working on 1 population(s):
+    Timon: GVA1418, GVA1515, GVA1926
+Working on 1 group(s) of populations:
+    defaultgrp: Timon
+
+Polymorphic sites in GenePop format will be written to './intermediate/populations/populations.snps.genepop'
+Polymorphic loci in GenePop format will be written to './intermediate/populations/populations.haps.genepop'
+Polymorphic sites in Structure format will be written to './intermediate/populations/populations.structure'
+FASTA consensus sequences for each locus in the metapopulation  will be written to './intermediate/populations/populations.loci.fa'
+Raw haplotypes will be written to './intermediate/populations/populations.haplotypes.tsv'
+Population-level summary statistics will be written to './intermediate/populations/populations.sumstats.tsv'
+Population-level haplotype summary statistics will be written to './intermediate/populations/populations.hapstats.tsv'
+
+Processing data in batches:
+  * load a batch of catalog loci and apply filters
+  * compute SNP- and haplotype-wise per-population statistics
+  * write the above statistics in the output files
+  * export the genotypes/haplotypes in specified format(s)
+More details in './intermediate/populations/populations.log.distribs'.
+
+Now processing...
+Batch 1 
+
+Removed 197 loci that did not pass sample/population constraints from 198 loci.
+Kept 1 loci, composed of 148 sites; 0 of those sites were filtered, 0 variant sites remained.
+Number of loci with PE contig: 1.00 (100.0%);
+  Mean length of loci: 138.00bp (stderr inf);
+Number of loci with SE/PE overlap: 1.00 (100.0%);
+  Mean length of overlapping loci: 148.00bp (stderr -nan); mean overlap: 31.00bp (stderr -nan);
+Mean genotyped sites per locus: 148.00bp (stderr -nan).
+
+Population summary statistics (more detail in populations.sumstats_summary.tsv):
+  Timon: -nan samples per locus; pi: -nan; all/variant/polymorphic sites: 148/0/0; private alleles: 0
+Aborted. (basic_string::substr: __pos (which is 1) > this->size() (which is 0))

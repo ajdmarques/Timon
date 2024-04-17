@@ -1,0 +1,67 @@
+process_radtags v2.63, executed 2024-04-17 16:52:28 (zlib-1.2.11)
+process_radtags -1 ./raw/MK1_A3/MK1_A3_Trim1.fq.gz -2 ./raw/MK1_A3/MK1_A3_Trim2.fq.gz -b ./raw/MK1_A3/barcodes_MK1_A3 --paired -c -r -o ./intermediate/process_radtags/ -q --inline-inline --renz-1 pstI --renz-2 aclI
+
+# Note: Individual distributions can be extracted using the `stacks-dist-extract` utility.
+#       e.g. `stacks-dist-extract process_radtags.MK1_A3.log dist_name`
+
+BEGIN per_file_raw_read_counts
+File	Retained Reads	Low Quality	Barcode Not Found	RAD cutsite Not Found	Total
+MK1_A3_Trim1.fq.gz	11681	18	488	523	12710
+END per_file_raw_read_counts
+
+BEGIN total_raw_read_counts
+Total Sequences	12710
+Barcode Not Found	488	3.8%
+Low Quality	18	0.1%
+RAD Cutsite Not Found	523	4.1%
+Retained Reads	11681	91.9%
+END total_raw_read_counts
+
+BEGIN per_barcode_raw_read_counts
+Barcode	Filename	Total	RAD Cutsite Not Found	Low Quality	Retained Reads	Pct Retained	Pct Total Reads
+CTCC-CTAAG	GVA1926	12222	523	18	11681	95.6%	91.9%
+END per_barcode_raw_read_counts
+
+BEGIN barcodes_not_recorded
+# A list and count of barcodes found that were not specified in the barcodes input file.
+Barcode	Total
+CTCC-GGGGG	268
+CTCC-CTCCT	36
+CTCC-TAAGC	32
+CTCC-TAGCG	20
+TCTC-CTAAG	14
+CTCC-AAGCG	12
+CTCC-CTAGC	10
+CCCT-CTAAG	8
+TCCT-CTAAG	8
+CTCC-CAAGC	8
+CCTC-CTAAG	6
+CTCC-GAGCC	6
+CTCC-CCTAA	4
+CTCC-TAAGG	4
+CTCC-AAGCC	4
+TCAC-CTAAG	2
+CTCC-TAAGT	2
+TCTC-GGGGG	2
+CCTC-GGGGG	2
+CTCC-GTCAA	2
+CTCT-GGGGG	2
+CCTG-CTAAG	2
+CTCC-GCATC	2
+TCCT-GGGGG	2
+CTCC-CTGCT	2
+CTAC-CTAGC	2
+CTCC-CTCCC	2
+CTCC-CTATC	2
+CTCC-CTAGT	2
+ACTA-CTAAG	2
+CTCC-AAGGA	2
+GCTG-CTAAG	2
+CTCC-CGCCC	2
+GGCC-CTAGC	2
+CTCC-CAGCA	2
+CTCC-CAGAG	2
+CTCC-CACAT	2
+CTCC-CAAGT	2
+GGTT-CTAAG	2
+END barcodes_not_recorded

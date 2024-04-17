@@ -1,0 +1,8 @@
+initialize
+initialize-directories
+trimmomatic
+sample-prep
+trimmomatic-1
+process-radtags
+denovo-map
+populations
