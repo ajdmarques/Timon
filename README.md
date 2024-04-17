@@ -1,13 +1,3 @@
-Welcome! 
+# STACKS Tutorial
 
-This is a minimal example of a book based on R Markdown and **bookdown** (https://github.com/rstudio/bookdown). 
-
-This template provides a skeleton file structure that you can edit to create your book. 
-
-The contents inside the .Rmd files provide some pointers to help you get started, but feel free to also delete the content in each file and start fresh.
-
-Additional resources:
-
-The **bookdown** book: https://bookdown.org/yihui/bookdown/
-
-The **bookdown** package reference site: https://pkgs.rstudio.com/bookdown
+The following is a tutorial for using the STACKS workflow. Trial data for this workflow uses 10000 randomly selected RADSeq reads from three Timon specimens. The scripts are run in R. Additional programs, STACKS and Trimmomatic, and called from the R environment. The R script is intended to generate the necessary input and output files/directories with each run. Existing output directories are removed during each run to avoid duplicating results and accumulating storage space. 
