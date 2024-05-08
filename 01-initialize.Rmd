@@ -10,6 +10,14 @@ raw_dir <- "./raw/"
 int_dir <- "./intermediate/"
 ```
 
+Delete and create a new directory for Trimmomatic output.
+
+```{r}
+trim_dir <- paste0(int_dir,"trimmomatic/")
+unlink(trim_dir, force = TRUE, recursive = TRUE)
+dir.create(trim_dir, showWarnings = FALSE, recursive = TRUE)
+```
+
 Delete and create a new directory for process_radtags output.
 
 ```{r}
@@ -38,4 +46,10 @@ Names of your base working directories.
 
 ```{r}
 print(c(home_dir,raw_dir,int_dir))
+```
+
+Cleanup
+
+```{r}
+rm(list=ls())
 ```

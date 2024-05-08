@@ -23,7 +23,7 @@
 <meta name="author" content="Adam Marques" />
 
 
-<meta name="date" content="2024-04-17" />
+<meta name="date" content="2024-05-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -175,43 +175,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="populations" class="section level1 hasAnchor" number="5">
 <h1><span class="header-section-number">Chapter 5</span> Populations<a href="populations.html#populations" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>The populations program will analyze a population of individual samples computing a number of population genetics statistics as well as exporting a variety of standard output formats.</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="populations.html#cb42-1" tabindex="-1"></a><span class="do">##############################</span></span>
-<span id="cb42-2"><a href="populations.html#cb42-2" tabindex="-1"></a><span class="do">## INITIALIZE DIRECTORIES</span></span>
-<span id="cb42-3"><a href="populations.html#cb42-3" tabindex="-1"></a><span class="do">##############################</span></span>
-<span id="cb42-4"><a href="populations.html#cb42-4" tabindex="-1"></a><span class="co"># Define directories</span></span>
-<span id="cb42-5"><a href="populations.html#cb42-5" tabindex="-1"></a>home_dir <span class="ot">&lt;-</span> <span class="st">&quot;./&quot;</span></span>
-<span id="cb42-6"><a href="populations.html#cb42-6" tabindex="-1"></a>raw_dir <span class="ot">&lt;-</span> <span class="st">&quot;./raw/&quot;</span></span>
-<span id="cb42-7"><a href="populations.html#cb42-7" tabindex="-1"></a>int_dir <span class="ot">&lt;-</span> <span class="st">&quot;./intermediate/&quot;</span></span>
-<span id="cb42-8"><a href="populations.html#cb42-8" tabindex="-1"></a><span class="co"># results directories</span></span>
-<span id="cb42-9"><a href="populations.html#cb42-9" tabindex="-1"></a>radtag_dir <span class="ot">&lt;-</span> <span class="fu">paste0</span>(int_dir,<span class="st">&quot;process_radtags/&quot;</span>)</span>
-<span id="cb42-10"><a href="populations.html#cb42-10" tabindex="-1"></a>denovo_dir <span class="ot">&lt;-</span> <span class="fu">paste0</span>(int_dir,<span class="st">&quot;denovomap/&quot;</span>)</span>
-<span id="cb42-11"><a href="populations.html#cb42-11" tabindex="-1"></a>populations_dir <span class="ot">&lt;-</span> <span class="fu">paste0</span>(int_dir,<span class="st">&quot;populations/&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="populations.html#cb29-1" tabindex="-1"></a><span class="do">##############################</span></span>
+<span id="cb29-2"><a href="populations.html#cb29-2" tabindex="-1"></a><span class="do">## INITIALIZE DIRECTORIES</span></span>
+<span id="cb29-3"><a href="populations.html#cb29-3" tabindex="-1"></a><span class="do">##############################</span></span>
+<span id="cb29-4"><a href="populations.html#cb29-4" tabindex="-1"></a><span class="co"># Define directories</span></span>
+<span id="cb29-5"><a href="populations.html#cb29-5" tabindex="-1"></a>home_dir <span class="ot">&lt;-</span> <span class="st">&quot;./&quot;</span></span>
+<span id="cb29-6"><a href="populations.html#cb29-6" tabindex="-1"></a>raw_dir <span class="ot">&lt;-</span> <span class="st">&quot;./raw/&quot;</span></span>
+<span id="cb29-7"><a href="populations.html#cb29-7" tabindex="-1"></a>int_dir <span class="ot">&lt;-</span> <span class="st">&quot;./intermediate/&quot;</span></span>
+<span id="cb29-8"><a href="populations.html#cb29-8" tabindex="-1"></a><span class="co"># results directories</span></span>
+<span id="cb29-9"><a href="populations.html#cb29-9" tabindex="-1"></a>trim_dir <span class="ot">&lt;-</span> <span class="fu">paste0</span>(int_dir,<span class="st">&quot;trimmomatic/&quot;</span>)</span>
+<span id="cb29-10"><a href="populations.html#cb29-10" tabindex="-1"></a>radtag_dir <span class="ot">&lt;-</span> <span class="fu">paste0</span>(int_dir,<span class="st">&quot;process_radtags/&quot;</span>)</span>
+<span id="cb29-11"><a href="populations.html#cb29-11" tabindex="-1"></a>denovo_dir <span class="ot">&lt;-</span> <span class="fu">paste0</span>(int_dir,<span class="st">&quot;denovomap/&quot;</span>)</span>
+<span id="cb29-12"><a href="populations.html#cb29-12" tabindex="-1"></a>populations_dir <span class="ot">&lt;-</span> <span class="fu">paste0</span>(int_dir,<span class="st">&quot;populations/&quot;</span>)</span></code></pre></div>
 <p>The populations program provides filtering options to only include loci or variant sites that occur at certain frequencies in each population or in the metapopulation.</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="populations.html#cb43-1" tabindex="-1"></a><span class="do">##############################</span></span>
-<span id="cb43-2"><a href="populations.html#cb43-2" tabindex="-1"></a><span class="do">## PARAMETERS</span></span>
-<span id="cb43-3"><a href="populations.html#cb43-3" tabindex="-1"></a><span class="do">##############################</span></span>
-<span id="cb43-4"><a href="populations.html#cb43-4" tabindex="-1"></a><span class="do">### load parameters</span></span>
-<span id="cb43-5"><a href="populations.html#cb43-5" tabindex="-1"></a><span class="co"># load population map</span></span>
-<span id="cb43-6"><a href="populations.html#cb43-6" tabindex="-1"></a>pop_map <span class="ot">=</span> <span class="fu">paste0</span>(raw_dir,<span class="st">&quot;popmap&quot;</span>)</span>
-<span id="cb43-7"><a href="populations.html#cb43-7" tabindex="-1"></a>M <span class="ot">=</span> <span class="dv">4</span>       <span class="co"># max mismatches allowed between stacks within individuals</span></span>
-<span id="cb43-8"><a href="populations.html#cb43-8" tabindex="-1"></a>Thread <span class="ot">=</span> <span class="dv">10</span> <span class="co"># the number of threads/CPUs to use (default: 1).</span></span>
-<span id="cb43-9"><a href="populations.html#cb43-9" tabindex="-1"></a>msp <span class="ot">=</span> <span class="fl">0.75</span>  <span class="co"># min number of samples per population</span></span>
-<span id="cb43-10"><a href="populations.html#cb43-10" tabindex="-1"></a>maf <span class="ot">=</span> <span class="fl">0.05</span>  <span class="co"># minimum minor allele frequency </span></span>
-<span id="cb43-11"><a href="populations.html#cb43-11" tabindex="-1"></a>moh <span class="ot">=</span> <span class="fl">0.5</span>   <span class="co"># maximum observed heterozygosity</span></span></code></pre></div>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="populations.html#cb44-1" tabindex="-1"></a><span class="co"># new list of directories to save results</span></span>
-<span id="cb44-2"><a href="populations.html#cb44-2" tabindex="-1"></a>denovo_M_dir <span class="ot">&lt;-</span> <span class="fu">paste0</span>(denovo_dir,<span class="st">&quot;denovo_M&quot;</span>,M,<span class="st">&quot;/&quot;</span>)</span>
-<span id="cb44-3"><a href="populations.html#cb44-3" tabindex="-1"></a><span class="do">## Run populations</span></span>
-<span id="cb44-4"><a href="populations.html#cb44-4" tabindex="-1"></a><span class="co"># run denovo_map</span></span>
-<span id="cb44-5"><a href="populations.html#cb44-5" tabindex="-1"></a><span class="fu">system</span>(<span class="fu">paste0</span>(<span class="st">&quot;populations&quot;</span>,</span>
-<span id="cb44-6"><a href="populations.html#cb44-6" tabindex="-1"></a>              <span class="st">&quot; -P &quot;</span>, denovo_M_dir, </span>
-<span id="cb44-7"><a href="populations.html#cb44-7" tabindex="-1"></a>              <span class="st">&quot; -O &quot;</span>, populations_dir,</span>
-<span id="cb44-8"><a href="populations.html#cb44-8" tabindex="-1"></a>              <span class="st">&quot; -M &quot;</span>, pop_map,</span>
-<span id="cb44-9"><a href="populations.html#cb44-9" tabindex="-1"></a>              <span class="st">&quot; --genepop --structure --fasta-loci&quot;</span>,</span>
-<span id="cb44-10"><a href="populations.html#cb44-10" tabindex="-1"></a>              <span class="st">&quot; -t &quot;</span>,Thread,</span>
-<span id="cb44-11"><a href="populations.html#cb44-11" tabindex="-1"></a>              <span class="st">&quot; --min-samples-per-pop &quot;</span>, <span class="fl">0.75</span>,</span>
-<span id="cb44-12"><a href="populations.html#cb44-12" tabindex="-1"></a>              <span class="st">&quot; --min-maf &quot;</span>,<span class="fl">0.05</span>,</span>
-<span id="cb44-13"><a href="populations.html#cb44-13" tabindex="-1"></a>              <span class="st">&quot;--max-obs-het&quot;</span>,<span class="fl">0.5</span>), </span>
-<span id="cb44-14"><a href="populations.html#cb44-14" tabindex="-1"></a>       <span class="at">intern =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="populations.html#cb30-1" tabindex="-1"></a><span class="do">##############################</span></span>
+<span id="cb30-2"><a href="populations.html#cb30-2" tabindex="-1"></a><span class="do">## PARAMETERS</span></span>
+<span id="cb30-3"><a href="populations.html#cb30-3" tabindex="-1"></a><span class="do">##############################</span></span>
+<span id="cb30-4"><a href="populations.html#cb30-4" tabindex="-1"></a><span class="do">### load parameters</span></span>
+<span id="cb30-5"><a href="populations.html#cb30-5" tabindex="-1"></a><span class="co"># load population map</span></span>
+<span id="cb30-6"><a href="populations.html#cb30-6" tabindex="-1"></a>pop_map <span class="ot">=</span> <span class="fu">paste0</span>(raw_dir,<span class="st">&quot;popmap&quot;</span>)</span>
+<span id="cb30-7"><a href="populations.html#cb30-7" tabindex="-1"></a>M <span class="ot">=</span> <span class="dv">4</span>       <span class="co"># max mismatches allowed between stacks within individuals</span></span>
+<span id="cb30-8"><a href="populations.html#cb30-8" tabindex="-1"></a>Thread <span class="ot">=</span> <span class="dv">10</span> <span class="co"># the number of threads/CPUs to use (default: 1).</span></span>
+<span id="cb30-9"><a href="populations.html#cb30-9" tabindex="-1"></a>msp <span class="ot">=</span> <span class="fl">0.75</span>  <span class="co"># min number of samples per population</span></span>
+<span id="cb30-10"><a href="populations.html#cb30-10" tabindex="-1"></a>maf <span class="ot">=</span> <span class="fl">0.05</span>  <span class="co"># minimum minor allele frequency </span></span>
+<span id="cb30-11"><a href="populations.html#cb30-11" tabindex="-1"></a>moh <span class="ot">=</span> <span class="fl">0.5</span>   <span class="co"># maximum observed heterozygosity</span></span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="populations.html#cb31-1" tabindex="-1"></a><span class="co"># new list of directories to save results</span></span>
+<span id="cb31-2"><a href="populations.html#cb31-2" tabindex="-1"></a>denovo_M_dir <span class="ot">&lt;-</span> <span class="fu">paste0</span>(denovo_dir,<span class="st">&quot;denovo_M&quot;</span>,M,<span class="st">&quot;/&quot;</span>)</span>
+<span id="cb31-3"><a href="populations.html#cb31-3" tabindex="-1"></a><span class="do">## Run populations</span></span>
+<span id="cb31-4"><a href="populations.html#cb31-4" tabindex="-1"></a><span class="co"># run denovo_map</span></span>
+<span id="cb31-5"><a href="populations.html#cb31-5" tabindex="-1"></a><span class="fu">system</span>(<span class="fu">paste0</span>(<span class="st">&quot;populations&quot;</span>,</span>
+<span id="cb31-6"><a href="populations.html#cb31-6" tabindex="-1"></a>              <span class="st">&quot; -P &quot;</span>, denovo_M_dir, </span>
+<span id="cb31-7"><a href="populations.html#cb31-7" tabindex="-1"></a>              <span class="st">&quot; -O &quot;</span>, populations_dir,</span>
+<span id="cb31-8"><a href="populations.html#cb31-8" tabindex="-1"></a>              <span class="st">&quot; -M &quot;</span>, pop_map,</span>
+<span id="cb31-9"><a href="populations.html#cb31-9" tabindex="-1"></a>              <span class="st">&quot; --genepop --structure --fasta-loci&quot;</span>,</span>
+<span id="cb31-10"><a href="populations.html#cb31-10" tabindex="-1"></a>              <span class="st">&quot; -t &quot;</span>,Thread,</span>
+<span id="cb31-11"><a href="populations.html#cb31-11" tabindex="-1"></a>              <span class="st">&quot; --min-samples-per-pop &quot;</span>, <span class="fl">0.75</span>,</span>
+<span id="cb31-12"><a href="populations.html#cb31-12" tabindex="-1"></a>              <span class="st">&quot; --min-maf &quot;</span>,<span class="fl">0.05</span>,</span>
+<span id="cb31-13"><a href="populations.html#cb31-13" tabindex="-1"></a>              <span class="st">&quot;--max-obs-het&quot;</span>,<span class="fl">0.5</span>), </span>
+<span id="cb31-14"><a href="populations.html#cb31-14" tabindex="-1"></a>       <span class="at">intern =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## Warning in system(paste0(&quot;populations&quot;, &quot; -P &quot;, denovo_M_dir, &quot; -O &quot;, populations_dir, : running command
 ## &#39;populations -P ./intermediate/denovomap/denovo_M4/ -O ./intermediate/populations/ -M ./raw/popmap --genepop
 ## --structure --fasta-loci -t 10 --min-samples-per-pop 0.75 --min-maf 0.05--max-obs-het0.5&#39; had status 1</code></pre>
@@ -254,7 +255,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## [37] &quot;Now processing...&quot;                                                                                                                  
 ## [38] &quot;Batch 1 &quot;                                                                                                                           
 ## [39] &quot;&quot;                                                                                                                                   
-## [40] &quot;Removed 197 loci that did not pass sample/population constraints from 198 loci.&quot;                                                    
+## [40] &quot;Removed 195 loci that did not pass sample/population constraints from 196 loci.&quot;                                                    
 ## [41] &quot;Kept 1 loci, composed of 148 sites; 0 of those sites were filtered, 0 variant sites remained.&quot;                                      
 ## [42] &quot;Number of loci with PE contig: 1.00 (100.0%);&quot;                                                                                      
 ## [43] &quot;  Mean length of loci: 138.00bp (stderr inf);&quot;                                                                                      
@@ -266,8 +267,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## [49] &quot;  Timon: -nan samples per locus; pi: -nan; all/variant/polymorphic sites: 148/0/0; private alleles: 0&quot;                              
 ## attr(,&quot;status&quot;)
 ## [1] 1</code></pre>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="populations.html#cb47-1" tabindex="-1"></a><span class="co"># cleanup</span></span>
-<span id="cb47-2"><a href="populations.html#cb47-2" tabindex="-1"></a><span class="fu">rm</span>(pop_map,M,Thread,msp,maf,moh,denovo_M_dir)</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="populations.html#cb34-1" tabindex="-1"></a><span class="co"># cleanup</span></span>
+<span id="cb34-2"><a href="populations.html#cb34-2" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list=</span><span class="fu">ls</span>())</span></code></pre></div>
 
 </div>
             </section>

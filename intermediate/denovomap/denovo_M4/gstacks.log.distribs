@@ -5,7 +5,7 @@ BEGIN effective_coverages_per_sample
 # For mean_cov_ns, the coverage at each locus is weighted by the number of
 # samples present at that locus (i.e. coverage at shared loci counts more).
 sample	n_loci	n_used_fw_reads	mean_cov	mean_cov_ns
-GVA1418	93	350	3.763	4.206
+GVA1418	91	341	3.747	4.200
 GVA1515	78	347	4.449	4.966
 GVA1926	37	134	3.622	4.425
 END effective_coverages_per_sample
@@ -21,25 +21,25 @@ BEGIN clockings
 Num. threads: 10
 Parallel time: 0.2
 Average thread time spent:
-     0.0  reading (2.0%)
-     0.2  processing (62.3%)
-             0.1 pre-alignments block (37.4%)
-             0.0  reformatting fw-reads (0.0%)
-             0.0  assembling (8.5%)
-             0.0  initializing alignments (2.7%)
-             0.1  aligning (25.0%)
-             0.0  merging read pairs (1.1%)
-             0.1 post-alignments block (23.2%)
+     0.0  reading (10.6%)
+     0.1  processing (53.5%)
+             0.1 pre-alignments block (29.8%)
+             0.0  reformatting fw-reads (0.1%)
+             0.0  assembling (7.5%)
+             0.0  initializing alignments (2.0%)
+             0.0  aligning (18.8%)
+             0.0  merging read pairs (1.4%)
+             0.0 post-alignments block (22.9%)
              0.0  filtering reads (0.0%)
-             0.0  counting nucleotides (2.2%)
-             0.0  genotyping (5.3%)
+             0.0  counting nucleotides (3.0%)
+             0.0  genotyping (4.3%)
              0.0  haplotyping (0.0%)
              0.0  computing consensus (0.1%)
              0.0  building_fa (0.1%)
              0.0  building_vcf (15.5%)
-     0.0  writing_fa (8.5%)
-     0.1  writing_vcf (26.6%)
+     0.0  writing_fa (4.0%)
+     0.0  writing_vcf (8.3%)
      0.0  clocking (0.1%)
-Total time spent writing vcf: 0.1 (25.1%)
-VCFwrite block size: mean=11.0(n=18); max=93
+Total time spent writing vcf: 0.0 (25.9%)
+VCFwrite block size: mean=8.9(n=22); max=51
 END clockings

@@ -23,7 +23,7 @@
 <meta name="author" content="Adam Marques" />
 
 
-<meta name="date" content="2024-04-17" />
+<meta name="date" content="2024-05-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -175,7 +175,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">ddRADSeq Timon</h1>
 <p class="author"><em>Adam Marques</em></p>
-<p class="date"><em>2024-04-17</em></p>
+<p class="date"><em>2024-05-08</em></p>
 </div>
 <div id="initialize" class="section level1 hasAnchor" number="1">
 <h1><span class="header-section-number">Chapter 1</span> Initialize<a href="initialize.html#initialize" class="anchor-section" aria-label="Anchor link to header"></a></h1>
@@ -185,21 +185,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="initialize.html#cb1-1" tabindex="-1"></a>home_dir <span class="ot">&lt;-</span> <span class="st">&quot;./&quot;</span></span>
 <span id="cb1-2"><a href="initialize.html#cb1-2" tabindex="-1"></a>raw_dir <span class="ot">&lt;-</span> <span class="st">&quot;./raw/&quot;</span></span>
 <span id="cb1-3"><a href="initialize.html#cb1-3" tabindex="-1"></a>int_dir <span class="ot">&lt;-</span> <span class="st">&quot;./intermediate/&quot;</span></span></code></pre></div>
+<p>Delete and create a new directory for Trimmomatic output.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="initialize.html#cb2-1" tabindex="-1"></a>trim_dir <span class="ot">&lt;-</span> <span class="fu">paste0</span>(int_dir,<span class="st">&quot;trimmomatic/&quot;</span>)</span>
+<span id="cb2-2"><a href="initialize.html#cb2-2" tabindex="-1"></a><span class="fu">unlink</span>(trim_dir, <span class="at">force =</span> <span class="cn">TRUE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-3"><a href="initialize.html#cb2-3" tabindex="-1"></a><span class="fu">dir.create</span>(trim_dir, <span class="at">showWarnings =</span> <span class="cn">FALSE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>Delete and create a new directory for process_radtags output.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="initialize.html#cb2-1" tabindex="-1"></a>radtag_dir <span class="ot">&lt;-</span> <span class="fu">paste0</span>(int_dir,<span class="st">&quot;process_radtags/&quot;</span>)</span>
-<span id="cb2-2"><a href="initialize.html#cb2-2" tabindex="-1"></a><span class="fu">unlink</span>(radtag_dir, <span class="at">force =</span> <span class="cn">TRUE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb2-3"><a href="initialize.html#cb2-3" tabindex="-1"></a><span class="fu">dir.create</span>(radtag_dir, <span class="at">showWarnings =</span> <span class="cn">FALSE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="initialize.html#cb3-1" tabindex="-1"></a>radtag_dir <span class="ot">&lt;-</span> <span class="fu">paste0</span>(int_dir,<span class="st">&quot;process_radtags/&quot;</span>)</span>
+<span id="cb3-2"><a href="initialize.html#cb3-2" tabindex="-1"></a><span class="fu">unlink</span>(radtag_dir, <span class="at">force =</span> <span class="cn">TRUE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-3"><a href="initialize.html#cb3-3" tabindex="-1"></a><span class="fu">dir.create</span>(radtag_dir, <span class="at">showWarnings =</span> <span class="cn">FALSE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>Delete and create a new directory for denovomap output.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="initialize.html#cb3-1" tabindex="-1"></a>denovo_dir <span class="ot">&lt;-</span> <span class="fu">paste0</span>(int_dir,<span class="st">&quot;denovomap/&quot;</span>)</span>
-<span id="cb3-2"><a href="initialize.html#cb3-2" tabindex="-1"></a><span class="fu">unlink</span>(denovo_dir, <span class="at">force =</span> <span class="cn">TRUE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb3-3"><a href="initialize.html#cb3-3" tabindex="-1"></a><span class="fu">dir.create</span>(denovo_dir, <span class="at">showWarnings =</span> <span class="cn">FALSE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="initialize.html#cb4-1" tabindex="-1"></a>denovo_dir <span class="ot">&lt;-</span> <span class="fu">paste0</span>(int_dir,<span class="st">&quot;denovomap/&quot;</span>)</span>
+<span id="cb4-2"><a href="initialize.html#cb4-2" tabindex="-1"></a><span class="fu">unlink</span>(denovo_dir, <span class="at">force =</span> <span class="cn">TRUE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-3"><a href="initialize.html#cb4-3" tabindex="-1"></a><span class="fu">dir.create</span>(denovo_dir, <span class="at">showWarnings =</span> <span class="cn">FALSE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>Delete and create a new directory for populations output.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="initialize.html#cb4-1" tabindex="-1"></a>populations_dir <span class="ot">&lt;-</span> <span class="fu">paste0</span>(int_dir,<span class="st">&quot;populations/&quot;</span>)</span>
-<span id="cb4-2"><a href="initialize.html#cb4-2" tabindex="-1"></a><span class="fu">unlink</span>(populations_dir, <span class="at">force =</span> <span class="cn">TRUE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb4-3"><a href="initialize.html#cb4-3" tabindex="-1"></a><span class="fu">dir.create</span>(populations_dir, <span class="at">showWarnings =</span> <span class="cn">FALSE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="initialize.html#cb5-1" tabindex="-1"></a>populations_dir <span class="ot">&lt;-</span> <span class="fu">paste0</span>(int_dir,<span class="st">&quot;populations/&quot;</span>)</span>
+<span id="cb5-2"><a href="initialize.html#cb5-2" tabindex="-1"></a><span class="fu">unlink</span>(populations_dir, <span class="at">force =</span> <span class="cn">TRUE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-3"><a href="initialize.html#cb5-3" tabindex="-1"></a><span class="fu">dir.create</span>(populations_dir, <span class="at">showWarnings =</span> <span class="cn">FALSE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>Names of your base working directories.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="initialize.html#cb5-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">c</span>(home_dir,raw_dir,int_dir))</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="initialize.html#cb6-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">c</span>(home_dir,raw_dir,int_dir))</span></code></pre></div>
 <pre><code>## [1] &quot;./&quot;              &quot;./raw/&quot;          &quot;./intermediate/&quot;</code></pre>
+<p>Cleanup</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="initialize.html#cb8-1" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list=</span><span class="fu">ls</span>())</span></code></pre></div>
 
 </div>
 </div>

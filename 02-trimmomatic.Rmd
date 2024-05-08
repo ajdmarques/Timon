@@ -11,6 +11,7 @@ home_dir <- "./"
 raw_dir <- "./raw/"
 int_dir <- "./intermediate/"
 # results directories
+trim_dir <- paste0(int_dir,"trimmomatic/")
 radtag_dir <- paste0(int_dir,"process_radtags/")
 denovo_dir <- paste0(int_dir,"denovomap/")
 populations_dir <- paste0(int_dir,"populations/")
@@ -123,6 +124,15 @@ list.files(path = raw_dir, pattern = pattern[2],
            recursive = T) -> p2
 ```
 
+Generate output directory for trimmed results
+```{r}
+for (i in seq_along(fq)){
+  dir.create(paste0(trim_dir,fq[i]), 
+             showWarnings = FALSE, recursive = TRUE)
+}
+```
+
+Execute Trimmomatic
 
 ```{r}
 # execute Trimmomatic for all reads
@@ -137,20 +147,20 @@ for (i in seq_along(p1)){
       raw_dir,p1[i]," ",
       raw_dir,p2[i]," ",
       # Outputs
-      raw_dir,fq[i],"/",fq[i],"_Trim1.fq ",
-      raw_dir,fq[i],"/",fq[i],"_Unpair1.fq ",
-      raw_dir,fq[i],"/",fq[i],"_Trim2.fq ",
-      raw_dir,fq[i],"/",fq[i],"_Unpair2.fq ",
+      trim_dir,fq[i],"/",fq[i],"_Trim1.fq ",
+      trim_dir,fq[i],"/",fq[i],"_Unpair1.fq ",
+      trim_dir,fq[i],"/",fq[i],"_Trim2.fq ",
+      trim_dir,fq[i],"/",fq[i],"_Unpair2.fq ",
       # Select adapters 
       "ILLUMINACLIP:",
-      home_dir,"scripts/Trimmomatic-0.39/adapters/NexteraPE-PE.fa:2:30:10 ",
+      home_dir,"./Trimmomatic-0.39/adapters/NexteraPE-PE.fa:2:30:10 ",
       "SLIDINGWINDOW:4:20 ",
       "MINLEN:150 "
     ),
     intern = TRUE)
   # compress files
   system(paste0(
-    "gzip ",raw_dir,fq[i],"/*.fq" 
+    "gzip ",trim_dir,fq[i],"/*.fq" 
   ),
   intern = TRUE)
 }
@@ -158,7 +168,6 @@ for (i in seq_along(p1)){
 
 ```{r}
 # cleanup
-rm(i,p1,p2,fq,pattern,s,f,
-   qualified_quality_phred,length_required,low_complexity_filter)
+rm(list=ls())
 ```
 

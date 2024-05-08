@@ -1,4 +1,4 @@
-populations v2.63, executed 2024-04-17 16:52:32 (zlib-1.2.11)
+populations v2.63, executed 2024-05-08 10:54:48 (zlib-1.2.11)
 /usr/local/bin/populations -P ./intermediate/denovomap/denovo_M4 -t 10 -M ./raw/popmap
 Locus/sample distributions will be written to './intermediate/denovomap/denovo_M4/populations.log.distribs'.
 populations parameters selected:
@@ -34,14 +34,14 @@ More details in './intermediate/denovomap/denovo_M4/populations.log.distribs'.
 Now processing...
 Batch 1 
 
-Removed 0 loci that did not pass sample/population constraints from 198 loci.
-Kept 198 loci, composed of 35920 sites; 0 of those sites were filtered, 7 variant sites remained.
-Number of loci with PE contig: 198.00 (100.0%);
-  Mean length of loci: 171.41bp (stderr 2.82);
-Number of loci with SE/PE overlap: 192.00 (97.0%);
-  Mean length of overlapping loci: 177.67bp (stderr 2.42); mean overlap: 30.67bp (stderr 0.18);
-Mean genotyped sites per locus: 181.11bp (stderr 2.75).
+Removed 0 loci that did not pass sample/population constraints from 196 loci.
+Kept 196 loci, composed of 35628 sites; 0 of those sites were filtered, 7 variant sites remained.
+Number of loci with PE contig: 196.00 (100.0%);
+  Mean length of loci: 171.78bp (stderr 2.84);
+Number of loci with SE/PE overlap: 190.00 (96.9%);
+  Mean length of overlapping loci: 178.00bp (stderr 2.43); mean overlap: 30.66bp (stderr 0.19);
+Mean genotyped sites per locus: 181.47bp (stderr 2.77).
 
 Population summary statistics (more detail in populations.sumstats_summary.tsv):
-  Timon: 1.4286 samples per locus; pi: 0.85714; all/variant/polymorphic sites: 35860/7/7; private alleles: 0
+  Timon: 1.4286 samples per locus; pi: 0.85714; all/variant/polymorphic sites: 35568/7/7; private alleles: 0
 Populations is done.

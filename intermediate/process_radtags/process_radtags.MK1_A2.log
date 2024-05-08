@@ -1,25 +1,25 @@
-process_radtags v2.63, executed 2024-04-17 16:52:28 (zlib-1.2.11)
-process_radtags -1 ./raw/MK1_A2/MK1_A2_Trim1.fq.gz -2 ./raw/MK1_A2/MK1_A2_Trim2.fq.gz -b ./raw/MK1_A2/barcodes_MK1_A2 --paired -c -r -o ./intermediate/process_radtags/ -q --inline-inline --renz-1 pstI --renz-2 aclI
+process_radtags v2.63, executed 2024-05-08 10:54:45 (zlib-1.2.11)
+process_radtags -1 ./intermediate/trimmomatic/MK1_A2/MK1_A2_Trim1.fq.gz -2 ./intermediate/trimmomatic/MK1_A2/MK1_A2_Trim2.fq.gz -b ./raw/MK1_A2/barcodes_MK1_A2 --paired -c -r -o ./intermediate/process_radtags/ -q --inline-inline --renz-1 pstI --renz-2 aclI
 
 # Note: Individual distributions can be extracted using the `stacks-dist-extract` utility.
 #       e.g. `stacks-dist-extract process_radtags.MK1_A2.log dist_name`
 
 BEGIN per_file_raw_read_counts
 File	Retained Reads	Low Quality	Barcode Not Found	RAD cutsite Not Found	Total
-MK1_A2_Trim1.fq.gz	7997	20	534	269	8820
+MK1_A2_Trim1.fq.gz	7898	20	532	264	8714
 END per_file_raw_read_counts
 
 BEGIN total_raw_read_counts
-Total Sequences	8820
-Barcode Not Found	534	6.1%
+Total Sequences	8714
+Barcode Not Found	532	6.1%
 Low Quality	20	0.2%
-RAD Cutsite Not Found	269	3.0%
-Retained Reads	7997	90.7%
+RAD Cutsite Not Found	264	3.0%
+Retained Reads	7898	90.6%
 END total_raw_read_counts
 
 BEGIN per_barcode_raw_read_counts
 Barcode	Filename	Total	RAD Cutsite Not Found	Low Quality	Retained Reads	Pct Retained	Pct Total Reads
-CTCC-GAGC	GVA1515	8286	269	20	7997	96.5%	90.7%
+CTCC-GAGC	GVA1515	8182	264	20	7898	96.5%	90.6%
 END per_barcode_raw_read_counts
 
 BEGIN barcodes_not_recorded
@@ -32,10 +32,10 @@ ACTA-GAGC	12
 TGCG-GAGC	10
 CTCC-GAAG	6
 CTCC-GGCC	6
-TCAC-GAGC	6
 CTCC-CTAA	6
 CTCC-GCTG	4
 CTCC-GCCG	4
+TCAC-GAGC	4
 TCTC-GAGC	4
 CGCT-GAGC	4
 CTCC-GCCA	2

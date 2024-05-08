@@ -1,4 +1,4 @@
-populations v2.63, executed 2024-04-17 16:52:33 (zlib-1.2.11)
+populations v2.63, executed 2024-05-08 10:54:48 (zlib-1.2.11)
 populations -P ./intermediate/denovomap/denovo_M4/ -O ./intermediate/populations/ -M ./raw/popmap --genepop --structure --fasta-loci -t 10 --min-samples-per-pop 0.75 --min-maf 0.05--max-obs-het0.5
 Locus/sample distributions will be written to './intermediate/populations/populations.log.distribs'.
 populations parameters selected:
@@ -38,7 +38,7 @@ More details in './intermediate/populations/populations.log.distribs'.
 Now processing...
 Batch 1 
 
-Removed 197 loci that did not pass sample/population constraints from 198 loci.
+Removed 195 loci that did not pass sample/population constraints from 196 loci.
 Kept 1 loci, composed of 148 sites; 0 of those sites were filtered, 0 variant sites remained.
 Number of loci with PE contig: 1.00 (100.0%);
   Mean length of loci: 138.00bp (stderr inf);

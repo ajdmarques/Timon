@@ -23,7 +23,7 @@
 <meta name="author" content="Adam Marques" />
 
 
-<meta name="date" content="2024-04-17" />
+<meta name="date" content="2024-05-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -175,50 +175,51 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="denovo-map" class="section level1 hasAnchor" number="4">
 <h1><span class="header-section-number">Chapter 4</span> Denovo Map<a href="denovo-map.html#denovo-map" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>The denovo_map program executes each of the steps in the Stacks pipeline individually in successive order.</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="denovo-map.html#cb38-1" tabindex="-1"></a><span class="do">##############################</span></span>
-<span id="cb38-2"><a href="denovo-map.html#cb38-2" tabindex="-1"></a><span class="do">## INITIALIZE DIRECTORIES</span></span>
-<span id="cb38-3"><a href="denovo-map.html#cb38-3" tabindex="-1"></a><span class="do">##############################</span></span>
-<span id="cb38-4"><a href="denovo-map.html#cb38-4" tabindex="-1"></a><span class="co"># Define directories</span></span>
-<span id="cb38-5"><a href="denovo-map.html#cb38-5" tabindex="-1"></a>home_dir <span class="ot">&lt;-</span> <span class="st">&quot;./&quot;</span></span>
-<span id="cb38-6"><a href="denovo-map.html#cb38-6" tabindex="-1"></a>raw_dir <span class="ot">&lt;-</span> <span class="st">&quot;./raw/&quot;</span></span>
-<span id="cb38-7"><a href="denovo-map.html#cb38-7" tabindex="-1"></a>int_dir <span class="ot">&lt;-</span> <span class="st">&quot;./intermediate/&quot;</span></span>
-<span id="cb38-8"><a href="denovo-map.html#cb38-8" tabindex="-1"></a><span class="co"># results directories</span></span>
-<span id="cb38-9"><a href="denovo-map.html#cb38-9" tabindex="-1"></a>radtag_dir <span class="ot">&lt;-</span> <span class="fu">paste0</span>(int_dir,<span class="st">&quot;process_radtags/&quot;</span>)</span>
-<span id="cb38-10"><a href="denovo-map.html#cb38-10" tabindex="-1"></a>denovo_dir <span class="ot">&lt;-</span> <span class="fu">paste0</span>(int_dir,<span class="st">&quot;denovomap/&quot;</span>)</span>
-<span id="cb38-11"><a href="denovo-map.html#cb38-11" tabindex="-1"></a>populations_dir <span class="ot">&lt;-</span> <span class="fu">paste0</span>(int_dir,<span class="st">&quot;populations/&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="denovo-map.html#cb25-1" tabindex="-1"></a><span class="do">##############################</span></span>
+<span id="cb25-2"><a href="denovo-map.html#cb25-2" tabindex="-1"></a><span class="do">## INITIALIZE DIRECTORIES</span></span>
+<span id="cb25-3"><a href="denovo-map.html#cb25-3" tabindex="-1"></a><span class="do">##############################</span></span>
+<span id="cb25-4"><a href="denovo-map.html#cb25-4" tabindex="-1"></a><span class="co"># Define directories</span></span>
+<span id="cb25-5"><a href="denovo-map.html#cb25-5" tabindex="-1"></a>home_dir <span class="ot">&lt;-</span> <span class="st">&quot;./&quot;</span></span>
+<span id="cb25-6"><a href="denovo-map.html#cb25-6" tabindex="-1"></a>raw_dir <span class="ot">&lt;-</span> <span class="st">&quot;./raw/&quot;</span></span>
+<span id="cb25-7"><a href="denovo-map.html#cb25-7" tabindex="-1"></a>int_dir <span class="ot">&lt;-</span> <span class="st">&quot;./intermediate/&quot;</span></span>
+<span id="cb25-8"><a href="denovo-map.html#cb25-8" tabindex="-1"></a><span class="co"># results directories</span></span>
+<span id="cb25-9"><a href="denovo-map.html#cb25-9" tabindex="-1"></a>trim_dir <span class="ot">&lt;-</span> <span class="fu">paste0</span>(int_dir,<span class="st">&quot;trimmomatic/&quot;</span>)</span>
+<span id="cb25-10"><a href="denovo-map.html#cb25-10" tabindex="-1"></a>radtag_dir <span class="ot">&lt;-</span> <span class="fu">paste0</span>(int_dir,<span class="st">&quot;process_radtags/&quot;</span>)</span>
+<span id="cb25-11"><a href="denovo-map.html#cb25-11" tabindex="-1"></a>denovo_dir <span class="ot">&lt;-</span> <span class="fu">paste0</span>(int_dir,<span class="st">&quot;denovomap/&quot;</span>)</span>
+<span id="cb25-12"><a href="denovo-map.html#cb25-12" tabindex="-1"></a>populations_dir <span class="ot">&lt;-</span> <span class="fu">paste0</span>(int_dir,<span class="st">&quot;populations/&quot;</span>)</span></code></pre></div>
 <p>A population map contains assignments of each of your samples to a particular population. The number of mismatches allowed between stacks within individuals during ustacks (-M), is iterated to determine which the optimal value might be. Sequence replicates can be used in this case to identify the value with the lowest error rate, otherwise select a single value for -M.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="denovo-map.html#cb39-1" tabindex="-1"></a><span class="do">##############################</span></span>
-<span id="cb39-2"><a href="denovo-map.html#cb39-2" tabindex="-1"></a><span class="do">## PARAMETERS</span></span>
-<span id="cb39-3"><a href="denovo-map.html#cb39-3" tabindex="-1"></a><span class="do">##############################</span></span>
-<span id="cb39-4"><a href="denovo-map.html#cb39-4" tabindex="-1"></a><span class="do">### load parameters</span></span>
-<span id="cb39-5"><a href="denovo-map.html#cb39-5" tabindex="-1"></a><span class="co"># load population map</span></span>
-<span id="cb39-6"><a href="denovo-map.html#cb39-6" tabindex="-1"></a>pop_map <span class="ot">=</span> <span class="fu">paste0</span>(raw_dir,<span class="st">&quot;popmap&quot;</span>)</span>
-<span id="cb39-7"><a href="denovo-map.html#cb39-7" tabindex="-1"></a><span class="co"># number of mismatches allowed between stacks within individuals (for ustacks).</span></span>
-<span id="cb39-8"><a href="denovo-map.html#cb39-8" tabindex="-1"></a>M <span class="ot">=</span> <span class="dv">4</span></span>
-<span id="cb39-9"><a href="denovo-map.html#cb39-9" tabindex="-1"></a><span class="co"># the number of threads/CPUs to use (default: 1).</span></span>
-<span id="cb39-10"><a href="denovo-map.html#cb39-10" tabindex="-1"></a>Thread <span class="ot">=</span> <span class="dv">10</span></span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="denovo-map.html#cb26-1" tabindex="-1"></a><span class="do">##############################</span></span>
+<span id="cb26-2"><a href="denovo-map.html#cb26-2" tabindex="-1"></a><span class="do">## PARAMETERS</span></span>
+<span id="cb26-3"><a href="denovo-map.html#cb26-3" tabindex="-1"></a><span class="do">##############################</span></span>
+<span id="cb26-4"><a href="denovo-map.html#cb26-4" tabindex="-1"></a><span class="do">### load parameters</span></span>
+<span id="cb26-5"><a href="denovo-map.html#cb26-5" tabindex="-1"></a><span class="co"># load population map</span></span>
+<span id="cb26-6"><a href="denovo-map.html#cb26-6" tabindex="-1"></a>pop_map <span class="ot">=</span> <span class="fu">paste0</span>(raw_dir,<span class="st">&quot;popmap&quot;</span>)</span>
+<span id="cb26-7"><a href="denovo-map.html#cb26-7" tabindex="-1"></a><span class="co"># number of mismatches allowed between stacks within individuals (for ustacks).</span></span>
+<span id="cb26-8"><a href="denovo-map.html#cb26-8" tabindex="-1"></a>M <span class="ot">=</span> <span class="dv">4</span></span>
+<span id="cb26-9"><a href="denovo-map.html#cb26-9" tabindex="-1"></a><span class="co"># the number of threads/CPUs to use (default: 1).</span></span>
+<span id="cb26-10"><a href="denovo-map.html#cb26-10" tabindex="-1"></a>Thread <span class="ot">=</span> <span class="dv">10</span></span></code></pre></div>
 <p>Run denovo_map either iteratively or at a single value. Each value of -M is save to a separate directory.</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="denovo-map.html#cb40-1" tabindex="-1"></a><span class="co"># new list of directories to save results</span></span>
-<span id="cb40-2"><a href="denovo-map.html#cb40-2" tabindex="-1"></a>denovo_M_dir <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb40-3"><a href="denovo-map.html#cb40-3" tabindex="-1"></a><span class="do">## Iterate for variable values of M</span></span>
-<span id="cb40-4"><a href="denovo-map.html#cb40-4" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(M)){</span>
-<span id="cb40-5"><a href="denovo-map.html#cb40-5" tabindex="-1"></a>    denovo_M_dir[[i]] <span class="ot">&lt;-</span> <span class="fu">paste0</span>(denovo_dir,<span class="st">&quot;denovo_M&quot;</span>,M[i],<span class="st">&quot;/&quot;</span>)</span>
-<span id="cb40-6"><a href="denovo-map.html#cb40-6" tabindex="-1"></a>    <span class="co"># empty directory to save FastQ files</span></span>
-<span id="cb40-7"><a href="denovo-map.html#cb40-7" tabindex="-1"></a>    <span class="fu">unlink</span>(denovo_M_dir[[i]], <span class="at">recursive =</span> <span class="cn">TRUE</span>, <span class="at">force =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb40-8"><a href="denovo-map.html#cb40-8" tabindex="-1"></a>    <span class="fu">dir.create</span>(denovo_M_dir[[i]], <span class="at">showWarnings =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb40-9"><a href="denovo-map.html#cb40-9" tabindex="-1"></a>               <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb40-10"><a href="denovo-map.html#cb40-10" tabindex="-1"></a>    <span class="fu">system</span>(<span class="fu">paste0</span>(<span class="st">&quot;denovo_map.pl&quot;</span>,</span>
-<span id="cb40-11"><a href="denovo-map.html#cb40-11" tabindex="-1"></a>                  <span class="st">&quot; -T &quot;</span>, Thread,</span>
-<span id="cb40-12"><a href="denovo-map.html#cb40-12" tabindex="-1"></a>                  <span class="st">&quot; -M &quot;</span>, M[i],</span>
-<span id="cb40-13"><a href="denovo-map.html#cb40-13" tabindex="-1"></a>                  <span class="st">&quot; -o &quot;</span>, denovo_M_dir[[i]],</span>
-<span id="cb40-14"><a href="denovo-map.html#cb40-14" tabindex="-1"></a>                  <span class="st">&quot; --samples &quot;</span>, radtag_dir,</span>
-<span id="cb40-15"><a href="denovo-map.html#cb40-15" tabindex="-1"></a>                  <span class="st">&quot; --popmap &quot;</span>, pop_map,</span>
-<span id="cb40-16"><a href="denovo-map.html#cb40-16" tabindex="-1"></a>                  <span class="st">&quot; --paired&quot;</span></span>
-<span id="cb40-17"><a href="denovo-map.html#cb40-17" tabindex="-1"></a>    ), </span>
-<span id="cb40-18"><a href="denovo-map.html#cb40-18" tabindex="-1"></a>    <span class="at">intern =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb40-19"><a href="denovo-map.html#cb40-19" tabindex="-1"></a>    }</span></code></pre></div>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="denovo-map.html#cb41-1" tabindex="-1"></a><span class="co"># cleanup</span></span>
-<span id="cb41-2"><a href="denovo-map.html#cb41-2" tabindex="-1"></a><span class="fu">rm</span>(i,denovo_M_dir,Thread,M,pop_map)</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="denovo-map.html#cb27-1" tabindex="-1"></a><span class="co"># new list of directories to save results</span></span>
+<span id="cb27-2"><a href="denovo-map.html#cb27-2" tabindex="-1"></a>denovo_M_dir <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb27-3"><a href="denovo-map.html#cb27-3" tabindex="-1"></a><span class="do">## Iterate for variable values of M</span></span>
+<span id="cb27-4"><a href="denovo-map.html#cb27-4" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(M)){</span>
+<span id="cb27-5"><a href="denovo-map.html#cb27-5" tabindex="-1"></a>    denovo_M_dir[[i]] <span class="ot">&lt;-</span> <span class="fu">paste0</span>(denovo_dir,<span class="st">&quot;denovo_M&quot;</span>,M[i],<span class="st">&quot;/&quot;</span>)</span>
+<span id="cb27-6"><a href="denovo-map.html#cb27-6" tabindex="-1"></a>    <span class="co"># empty directory to save FastQ files</span></span>
+<span id="cb27-7"><a href="denovo-map.html#cb27-7" tabindex="-1"></a>    <span class="fu">unlink</span>(denovo_M_dir[[i]], <span class="at">recursive =</span> <span class="cn">TRUE</span>, <span class="at">force =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb27-8"><a href="denovo-map.html#cb27-8" tabindex="-1"></a>    <span class="fu">dir.create</span>(denovo_M_dir[[i]], <span class="at">showWarnings =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb27-9"><a href="denovo-map.html#cb27-9" tabindex="-1"></a>               <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb27-10"><a href="denovo-map.html#cb27-10" tabindex="-1"></a>    <span class="fu">system</span>(<span class="fu">paste0</span>(<span class="st">&quot;denovo_map.pl&quot;</span>,</span>
+<span id="cb27-11"><a href="denovo-map.html#cb27-11" tabindex="-1"></a>                  <span class="st">&quot; -T &quot;</span>, Thread,</span>
+<span id="cb27-12"><a href="denovo-map.html#cb27-12" tabindex="-1"></a>                  <span class="st">&quot; -M &quot;</span>, M[i],</span>
+<span id="cb27-13"><a href="denovo-map.html#cb27-13" tabindex="-1"></a>                  <span class="st">&quot; -o &quot;</span>, denovo_M_dir[[i]],</span>
+<span id="cb27-14"><a href="denovo-map.html#cb27-14" tabindex="-1"></a>                  <span class="st">&quot; --samples &quot;</span>, radtag_dir,</span>
+<span id="cb27-15"><a href="denovo-map.html#cb27-15" tabindex="-1"></a>                  <span class="st">&quot; --popmap &quot;</span>, pop_map,</span>
+<span id="cb27-16"><a href="denovo-map.html#cb27-16" tabindex="-1"></a>                  <span class="st">&quot; --paired&quot;</span></span>
+<span id="cb27-17"><a href="denovo-map.html#cb27-17" tabindex="-1"></a>    ), </span>
+<span id="cb27-18"><a href="denovo-map.html#cb27-18" tabindex="-1"></a>    <span class="at">intern =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb27-19"><a href="denovo-map.html#cb27-19" tabindex="-1"></a>    }</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="denovo-map.html#cb28-1" tabindex="-1"></a><span class="co"># cleanup</span></span>
+<span id="cb28-2"><a href="denovo-map.html#cb28-2" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list=</span><span class="fu">ls</span>())</span></code></pre></div>
 
 </div>
             </section>

@@ -11,6 +11,7 @@ home_dir <- "./"
 raw_dir <- "./raw/"
 int_dir <- "./intermediate/"
 # results directories
+trim_dir <- paste0(int_dir,"trimmomatic/")
 radtag_dir <- paste0(int_dir,"process_radtags/")
 denovo_dir <- paste0(int_dir,"denovomap/")
 populations_dir <- paste0(int_dir,"populations/")
@@ -52,6 +53,6 @@ system(paste0("populations",
 
 ```{r}
 # cleanup
-rm(pop_map,M,Thread,msp,maf,moh,denovo_M_dir)
+rm(list=ls())
 ```
 

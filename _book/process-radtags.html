@@ -23,7 +23,7 @@
 <meta name="author" content="Adam Marques" />
 
 
-<meta name="date" content="2024-04-17" />
+<meta name="date" content="2024-05-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -175,65 +175,65 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="process-radtags" class="section level1 hasAnchor" number="3">
 <h1><span class="header-section-number">Chapter 3</span> Process Radtags<a href="process-radtags.html#process-radtags" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Raw reads are checked for barcode indices and RAD cutsite then demultiplexed. A sliding window checks the average quality score and discards those with less than 90% probability of being correct corresponding to a raw phred score of 10.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="process-radtags.html#cb32-1" tabindex="-1"></a><span class="do">##############################</span></span>
-<span id="cb32-2"><a href="process-radtags.html#cb32-2" tabindex="-1"></a><span class="do">## INITIALIZE DIRECTORIES</span></span>
-<span id="cb32-3"><a href="process-radtags.html#cb32-3" tabindex="-1"></a><span class="do">##############################</span></span>
-<span id="cb32-4"><a href="process-radtags.html#cb32-4" tabindex="-1"></a><span class="co"># Define directories</span></span>
-<span id="cb32-5"><a href="process-radtags.html#cb32-5" tabindex="-1"></a>home_dir <span class="ot">&lt;-</span> <span class="st">&quot;./&quot;</span></span>
-<span id="cb32-6"><a href="process-radtags.html#cb32-6" tabindex="-1"></a>raw_dir <span class="ot">&lt;-</span> <span class="st">&quot;./raw/&quot;</span></span>
-<span id="cb32-7"><a href="process-radtags.html#cb32-7" tabindex="-1"></a>int_dir <span class="ot">&lt;-</span> <span class="st">&quot;./intermediate/&quot;</span></span>
-<span id="cb32-8"><a href="process-radtags.html#cb32-8" tabindex="-1"></a><span class="co"># results directories</span></span>
-<span id="cb32-9"><a href="process-radtags.html#cb32-9" tabindex="-1"></a>radtag_dir <span class="ot">&lt;-</span> <span class="fu">paste0</span>(int_dir,<span class="st">&quot;process_radtags/&quot;</span>)</span>
-<span id="cb32-10"><a href="process-radtags.html#cb32-10" tabindex="-1"></a>denovo_dir <span class="ot">&lt;-</span> <span class="fu">paste0</span>(int_dir,<span class="st">&quot;denovomap/&quot;</span>)</span>
-<span id="cb32-11"><a href="process-radtags.html#cb32-11" tabindex="-1"></a>populations_dir <span class="ot">&lt;-</span> <span class="fu">paste0</span>(int_dir,<span class="st">&quot;populations/&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="process-radtags.html#cb20-1" tabindex="-1"></a><span class="do">##############################</span></span>
+<span id="cb20-2"><a href="process-radtags.html#cb20-2" tabindex="-1"></a><span class="do">## INITIALIZE DIRECTORIES</span></span>
+<span id="cb20-3"><a href="process-radtags.html#cb20-3" tabindex="-1"></a><span class="do">##############################</span></span>
+<span id="cb20-4"><a href="process-radtags.html#cb20-4" tabindex="-1"></a><span class="co"># Define directories</span></span>
+<span id="cb20-5"><a href="process-radtags.html#cb20-5" tabindex="-1"></a>home_dir <span class="ot">&lt;-</span> <span class="st">&quot;./&quot;</span></span>
+<span id="cb20-6"><a href="process-radtags.html#cb20-6" tabindex="-1"></a>raw_dir <span class="ot">&lt;-</span> <span class="st">&quot;./raw/&quot;</span></span>
+<span id="cb20-7"><a href="process-radtags.html#cb20-7" tabindex="-1"></a>int_dir <span class="ot">&lt;-</span> <span class="st">&quot;./intermediate/&quot;</span></span>
+<span id="cb20-8"><a href="process-radtags.html#cb20-8" tabindex="-1"></a><span class="co"># results directories</span></span>
+<span id="cb20-9"><a href="process-radtags.html#cb20-9" tabindex="-1"></a>trim_dir <span class="ot">&lt;-</span> <span class="fu">paste0</span>(int_dir,<span class="st">&quot;trimmomatic/&quot;</span>)</span>
+<span id="cb20-10"><a href="process-radtags.html#cb20-10" tabindex="-1"></a>radtag_dir <span class="ot">&lt;-</span> <span class="fu">paste0</span>(int_dir,<span class="st">&quot;process_radtags/&quot;</span>)</span>
+<span id="cb20-11"><a href="process-radtags.html#cb20-11" tabindex="-1"></a>denovo_dir <span class="ot">&lt;-</span> <span class="fu">paste0</span>(int_dir,<span class="st">&quot;denovomap/&quot;</span>)</span>
+<span id="cb20-12"><a href="process-radtags.html#cb20-12" tabindex="-1"></a>populations_dir <span class="ot">&lt;-</span> <span class="fu">paste0</span>(int_dir,<span class="st">&quot;populations/&quot;</span>)</span></code></pre></div>
 <p>Load the relevant parameters. Stacks versions 2.65+ are necessary for our analysis as earlier versions do not have the “aclI” enzyme option.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="process-radtags.html#cb33-1" tabindex="-1"></a><span class="do">##############################</span></span>
-<span id="cb33-2"><a href="process-radtags.html#cb33-2" tabindex="-1"></a><span class="do">## PARAMETERS</span></span>
-<span id="cb33-3"><a href="process-radtags.html#cb33-3" tabindex="-1"></a><span class="do">##############################</span></span>
-<span id="cb33-4"><a href="process-radtags.html#cb33-4" tabindex="-1"></a><span class="co"># general cutside</span></span>
-<span id="cb33-5"><a href="process-radtags.html#cb33-5" tabindex="-1"></a>renz1 <span class="ot">=</span> <span class="st">&quot;pstI&quot;</span></span>
-<span id="cb33-6"><a href="process-radtags.html#cb33-6" tabindex="-1"></a><span class="co"># rare cutsite</span></span>
-<span id="cb33-7"><a href="process-radtags.html#cb33-7" tabindex="-1"></a>renz2 <span class="ot">=</span> <span class="st">&quot;aclI&quot;</span></span>
-<span id="cb33-8"><a href="process-radtags.html#cb33-8" tabindex="-1"></a><span class="co"># adapter sequence</span></span>
-<span id="cb33-9"><a href="process-radtags.html#cb33-9" tabindex="-1"></a>lenth_limit <span class="ot">=</span> <span class="dv">150</span></span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="process-radtags.html#cb21-1" tabindex="-1"></a><span class="do">##############################</span></span>
+<span id="cb21-2"><a href="process-radtags.html#cb21-2" tabindex="-1"></a><span class="do">## PARAMETERS</span></span>
+<span id="cb21-3"><a href="process-radtags.html#cb21-3" tabindex="-1"></a><span class="do">##############################</span></span>
+<span id="cb21-4"><a href="process-radtags.html#cb21-4" tabindex="-1"></a><span class="co"># general cutside</span></span>
+<span id="cb21-5"><a href="process-radtags.html#cb21-5" tabindex="-1"></a>renz1 <span class="ot">=</span> <span class="st">&quot;pstI&quot;</span></span>
+<span id="cb21-6"><a href="process-radtags.html#cb21-6" tabindex="-1"></a><span class="co"># rare cutsite</span></span>
+<span id="cb21-7"><a href="process-radtags.html#cb21-7" tabindex="-1"></a>renz2 <span class="ot">=</span> <span class="st">&quot;aclI&quot;</span></span>
+<span id="cb21-8"><a href="process-radtags.html#cb21-8" tabindex="-1"></a><span class="co"># adapter sequence</span></span>
+<span id="cb21-9"><a href="process-radtags.html#cb21-9" tabindex="-1"></a>lenth_limit <span class="ot">=</span> <span class="dv">150</span></span></code></pre></div>
 <p>Identify all of the trimmed files for use as imput.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="process-radtags.html#cb34-1" tabindex="-1"></a><span class="do">##############################</span></span>
-<span id="cb34-2"><a href="process-radtags.html#cb34-2" tabindex="-1"></a><span class="do">## LIST FILES</span></span>
-<span id="cb34-3"><a href="process-radtags.html#cb34-3" tabindex="-1"></a><span class="do">##############################</span></span>
-<span id="cb34-4"><a href="process-radtags.html#cb34-4" tabindex="-1"></a><span class="co"># list of sequence directories</span></span>
-<span id="cb34-5"><a href="process-radtags.html#cb34-5" tabindex="-1"></a>fq <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb34-6"><a href="process-radtags.html#cb34-6" tabindex="-1"></a><span class="fu">list.files</span>(<span class="at">path =</span> raw_dir, <span class="at">pattern =</span> <span class="st">&quot;MK1&quot;</span>, <span class="at">include.dirs =</span> T) <span class="ot">-&gt;</span> fq</span>
-<span id="cb34-7"><a href="process-radtags.html#cb34-7" tabindex="-1"></a><span class="co"># trimmed P1 reads</span></span>
-<span id="cb34-8"><a href="process-radtags.html#cb34-8" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb34-9"><a href="process-radtags.html#cb34-9" tabindex="-1"></a><span class="fu">list.files</span>(<span class="at">path =</span> raw_dir, <span class="at">pattern =</span> <span class="st">&quot;Trim1.fq.gz&quot;</span>, <span class="at">recursive =</span> T) <span class="ot">-&gt;</span> p1</span>
-<span id="cb34-10"><a href="process-radtags.html#cb34-10" tabindex="-1"></a><span class="co"># trimmer P2 reads</span></span>
-<span id="cb34-11"><a href="process-radtags.html#cb34-11" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb34-12"><a href="process-radtags.html#cb34-12" tabindex="-1"></a><span class="fu">list.files</span>(<span class="at">path =</span> raw_dir, <span class="at">pattern =</span> <span class="st">&quot;Trim2.fq.gz&quot;</span>, <span class="at">recursive =</span> T) <span class="ot">-&gt;</span> p2</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="process-radtags.html#cb22-1" tabindex="-1"></a><span class="do">##############################</span></span>
+<span id="cb22-2"><a href="process-radtags.html#cb22-2" tabindex="-1"></a><span class="do">## LIST FILES</span></span>
+<span id="cb22-3"><a href="process-radtags.html#cb22-3" tabindex="-1"></a><span class="do">##############################</span></span>
+<span id="cb22-4"><a href="process-radtags.html#cb22-4" tabindex="-1"></a><span class="co"># list of sequence directories</span></span>
+<span id="cb22-5"><a href="process-radtags.html#cb22-5" tabindex="-1"></a>fq <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb22-6"><a href="process-radtags.html#cb22-6" tabindex="-1"></a><span class="fu">list.files</span>(<span class="at">path =</span> trim_dir, <span class="at">pattern =</span> <span class="st">&quot;MK1&quot;</span>, <span class="at">include.dirs =</span> T) <span class="ot">-&gt;</span> fq</span>
+<span id="cb22-7"><a href="process-radtags.html#cb22-7" tabindex="-1"></a><span class="co"># trimmed P1 reads</span></span>
+<span id="cb22-8"><a href="process-radtags.html#cb22-8" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb22-9"><a href="process-radtags.html#cb22-9" tabindex="-1"></a><span class="fu">list.files</span>(<span class="at">path =</span> trim_dir, <span class="at">pattern =</span> <span class="st">&quot;Trim1.fq.gz&quot;</span>, <span class="at">recursive =</span> T) <span class="ot">-&gt;</span> p1</span>
+<span id="cb22-10"><a href="process-radtags.html#cb22-10" tabindex="-1"></a><span class="co"># trimmer P2 reads</span></span>
+<span id="cb22-11"><a href="process-radtags.html#cb22-11" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb22-12"><a href="process-radtags.html#cb22-12" tabindex="-1"></a><span class="fu">list.files</span>(<span class="at">path =</span> trim_dir, <span class="at">pattern =</span> <span class="st">&quot;Trim2.fq.gz&quot;</span>, <span class="at">recursive =</span> T) <span class="ot">-&gt;</span> p2</span></code></pre></div>
 <p>Repeat the process_radtags function for each sequence directory. All demultiplexed reads are then stored in the same directory, “process_radtags”.</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="process-radtags.html#cb35-1" tabindex="-1"></a><span class="do">##############################</span></span>
-<span id="cb35-2"><a href="process-radtags.html#cb35-2" tabindex="-1"></a><span class="do">## PROCESS_RADTAGS</span></span>
-<span id="cb35-3"><a href="process-radtags.html#cb35-3" tabindex="-1"></a><span class="do">##############################</span></span>
-<span id="cb35-4"><a href="process-radtags.html#cb35-4" tabindex="-1"></a><span class="do">### Run process_radtags to parse the Combined data by individual</span></span>
-<span id="cb35-5"><a href="process-radtags.html#cb35-5" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(fq)){</span>
-<span id="cb35-6"><a href="process-radtags.html#cb35-6" tabindex="-1"></a>  <span class="fu">system</span>(</span>
-<span id="cb35-7"><a href="process-radtags.html#cb35-7" tabindex="-1"></a>    <span class="fu">paste0</span>(<span class="st">&quot;process_radtags&quot;</span>,</span>
-<span id="cb35-8"><a href="process-radtags.html#cb35-8" tabindex="-1"></a>           <span class="st">&quot; -1 &quot;</span>,raw_dir,p1[i],</span>
-<span id="cb35-9"><a href="process-radtags.html#cb35-9" tabindex="-1"></a>           <span class="st">&quot; -2 &quot;</span>,raw_dir,p2[i],</span>
-<span id="cb35-10"><a href="process-radtags.html#cb35-10" tabindex="-1"></a>           <span class="st">&quot; -b &quot;</span>,raw_dir,fq[i],<span class="st">&quot;/barcodes_&quot;</span>,fq[i],</span>
-<span id="cb35-11"><a href="process-radtags.html#cb35-11" tabindex="-1"></a>           <span class="st">&quot; --paired &quot;</span>,</span>
-<span id="cb35-12"><a href="process-radtags.html#cb35-12" tabindex="-1"></a>           <span class="st">&quot; -c &quot;</span>,</span>
-<span id="cb35-13"><a href="process-radtags.html#cb35-13" tabindex="-1"></a>           <span class="st">&quot; -r &quot;</span>,</span>
-<span id="cb35-14"><a href="process-radtags.html#cb35-14" tabindex="-1"></a>           <span class="st">&quot; -o &quot;</span>,radtag_dir,</span>
-<span id="cb35-15"><a href="process-radtags.html#cb35-15" tabindex="-1"></a>           <span class="st">&quot; -q &quot;</span>,</span>
-<span id="cb35-16"><a href="process-radtags.html#cb35-16" tabindex="-1"></a>           <span class="st">&quot; --inline-inline &quot;</span>,</span>
-<span id="cb35-17"><a href="process-radtags.html#cb35-17" tabindex="-1"></a>           <span class="st">&quot; --renz-1 &quot;</span>,renz1,</span>
-<span id="cb35-18"><a href="process-radtags.html#cb35-18" tabindex="-1"></a>           <span class="st">&quot; --renz-2 &quot;</span>,renz2</span>
-<span id="cb35-19"><a href="process-radtags.html#cb35-19" tabindex="-1"></a>    ),</span>
-<span id="cb35-20"><a href="process-radtags.html#cb35-20" tabindex="-1"></a>    <span class="at">intern =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb35-21"><a href="process-radtags.html#cb35-21" tabindex="-1"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="process-radtags.html#cb36-1" tabindex="-1"></a><span class="co"># cleanup</span></span>
-<span id="cb36-2"><a href="process-radtags.html#cb36-2" tabindex="-1"></a><span class="fu">rm</span>(radtag_parameters,p1,p2,i,renz1,renz2,lenth_limit,fq)</span></code></pre></div>
-<pre><code>## Warning in rm(radtag_parameters, p1, p2, i, renz1, renz2, lenth_limit, fq): object &#39;radtag_parameters&#39; not found</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="process-radtags.html#cb23-1" tabindex="-1"></a><span class="do">##############################</span></span>
+<span id="cb23-2"><a href="process-radtags.html#cb23-2" tabindex="-1"></a><span class="do">## PROCESS_RADTAGS</span></span>
+<span id="cb23-3"><a href="process-radtags.html#cb23-3" tabindex="-1"></a><span class="do">##############################</span></span>
+<span id="cb23-4"><a href="process-radtags.html#cb23-4" tabindex="-1"></a><span class="do">### Run process_radtags to parse the Combined data by individual</span></span>
+<span id="cb23-5"><a href="process-radtags.html#cb23-5" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(fq)){</span>
+<span id="cb23-6"><a href="process-radtags.html#cb23-6" tabindex="-1"></a>  <span class="fu">system</span>(</span>
+<span id="cb23-7"><a href="process-radtags.html#cb23-7" tabindex="-1"></a>    <span class="fu">paste0</span>(<span class="st">&quot;process_radtags&quot;</span>,</span>
+<span id="cb23-8"><a href="process-radtags.html#cb23-8" tabindex="-1"></a>           <span class="st">&quot; -1 &quot;</span>,trim_dir,p1[i],</span>
+<span id="cb23-9"><a href="process-radtags.html#cb23-9" tabindex="-1"></a>           <span class="st">&quot; -2 &quot;</span>,trim_dir,p2[i],</span>
+<span id="cb23-10"><a href="process-radtags.html#cb23-10" tabindex="-1"></a>           <span class="st">&quot; -b &quot;</span>,raw_dir,fq[i],<span class="st">&quot;/barcodes_&quot;</span>,fq[i],</span>
+<span id="cb23-11"><a href="process-radtags.html#cb23-11" tabindex="-1"></a>           <span class="st">&quot; --paired &quot;</span>,</span>
+<span id="cb23-12"><a href="process-radtags.html#cb23-12" tabindex="-1"></a>           <span class="st">&quot; -c &quot;</span>,</span>
+<span id="cb23-13"><a href="process-radtags.html#cb23-13" tabindex="-1"></a>           <span class="st">&quot; -r &quot;</span>,</span>
+<span id="cb23-14"><a href="process-radtags.html#cb23-14" tabindex="-1"></a>           <span class="st">&quot; -o &quot;</span>,radtag_dir,</span>
+<span id="cb23-15"><a href="process-radtags.html#cb23-15" tabindex="-1"></a>           <span class="st">&quot; -q &quot;</span>,</span>
+<span id="cb23-16"><a href="process-radtags.html#cb23-16" tabindex="-1"></a>           <span class="st">&quot; --inline-inline &quot;</span>,</span>
+<span id="cb23-17"><a href="process-radtags.html#cb23-17" tabindex="-1"></a>           <span class="st">&quot; --renz-1 &quot;</span>,renz1,</span>
+<span id="cb23-18"><a href="process-radtags.html#cb23-18" tabindex="-1"></a>           <span class="st">&quot; --renz-2 &quot;</span>,renz2</span>
+<span id="cb23-19"><a href="process-radtags.html#cb23-19" tabindex="-1"></a>    ),</span>
+<span id="cb23-20"><a href="process-radtags.html#cb23-20" tabindex="-1"></a>    <span class="at">intern =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb23-21"><a href="process-radtags.html#cb23-21" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="process-radtags.html#cb24-1" tabindex="-1"></a><span class="co"># cleanup</span></span>
+<span id="cb24-2"><a href="process-radtags.html#cb24-2" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list=</span><span class="fu">ls</span>())</span></code></pre></div>
 
 </div>
             </section>
